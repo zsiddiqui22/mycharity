@@ -1,0 +1,25 @@
+{
+  "name": "MCH",
+  "version": "0.0.1",
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@ionic/v1-toolkit": "1.0.22",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^3.1.0"
+  },
+  "dependencies": {
+    "@ionic/pro": "2.0.3",
+    "angular-clipboard": "^1.6.2",
+    "ionic-datepicker": "^1.2.1",
+    "ng-file-upload": "^12.2.13",
+    "ng-toast": "^2.0.0",
+    "socket.io": "^2.1.1"
+  }
+}
