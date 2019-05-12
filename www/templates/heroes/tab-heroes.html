@@ -1,0 +1,89 @@
+<ion-view>
+
+  <ion-content class="gray-bg" has-bouncing="false" overflow-scroll="true">
+    <!-- heros  start-->
+      <!-- no result found start  -->
+      <div ng-hide="heros.length != 0">
+          <p class="grey-color fs-12 centered text-center">
+              No results found.
+          </p>
+      </div>
+      <!-- no result found end  -->
+      <ion-list>
+          <ion-item class="list card card-rm-boundry" ng-repeat="item in heros | filter:amountConversionTok" ng-if="item.supportable">
+              <a class="item item-thumbnail-left list-border-hide-l-r-t full-text" ng-click="gotoProfile(item)">
+                <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}">
+      
+                <div class="row padding-0">
+                  <div class="col">
+                    <b class="fs-13 default-color">{{item.supportable.name}}</b>
+                  </div>
+                  <div class="col text-right">
+                    <div>
+                      <span class="fs-13 float-right fs-11 green-color card-chat-cion">
+                        <img class="width-15" src="img/chat.svg" alt=""></span>
+                    </div>
+                    <div class="pr-27">
+                      <!-- <button class="button button-balanced btn-small fs-9" ng-click="showDonation($event,item)">
+                        DONATE
+                      </button> -->
+                      <donation-button data="{{item}}" type="user" display="display()">
+                      </donation-button>
+                    </div>
+                  </div>
+                </div>
+      
+                <p class="fs-11 grey-color">{{item.supportable.address}}</p>
+                <!-- <p class="fs-11 grey-color">
+                  <abbr ng-if="item.donation_rank">
+                    Donation Rank:
+                    <rais>
+                      {{ item.donation_rank}}<sup>{{ item.donation_sup}}</sup>
+                    </rais>
+                  </abbr>
+                </p> -->
+                <p class="fs-11 grey-color">{{item.supportable.job}}</p>
+              </a>
+              <div class="row">
+                <div class="col-30">
+                  <button class="button button-positive-revert btn-small fs-9" ng-if="item.supported == true" ng-click="usSupportedType(item,'heros')">
+                    SUPPORTED
+                  </button>
+                  <button class="button button-positive btn-small fs-9" ng-if="item.supported != true" ng-click="supportedType(item,'heros')">
+                    SUPPORT
+                  </button>
+      
+                  <button class="button button-balanced btn-small fs-9">
+                    ASK FOR DONATION
+                  </button>
+                </div>
+      
+                <div class="col text-right">
+                    <span class="fs-14 grey-color">
+                      <img class="width-15" src="img/supporter.svg" alt="">
+                      <b> {{item.supporters ? item.supporters : 0}}</b>
+        
+                    </span>
+                    &nbsp;
+                    <span class="fs-14 grey-color">
+                      <img class="width-15" src="img/donor.svg" alt="">
+                      <b> {{item.donors ? item.donors : 0}}</b>
+                    </span>
+                    &nbsp;
+                    <span class="fs-14 grey-color">
+                      <img class="width-15" src="img/celebrity.svg" alt="">
+                      <b> {{item.Celebrities ? item.Celebrities : 0}}</b>
+                    </span>
+                  </div>
+              </div>
+            </ion-item>
+      </ion-list>
+      <ion-infinite-scroll on-infinite="getHeros()"
+      ng-if="(!(heros.length == count) || dataAvailable)" distance="1%" immediate-check="false">
+    </ion-infinite-scroll>
+
+ 
+    <!-- heros  end-->
+  </ion-content>
+
+</ion-view>

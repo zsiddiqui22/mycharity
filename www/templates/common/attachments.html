@@ -1,0 +1,125 @@
+<div class="row attachment" >
+  <div class="col">
+    <div>
+      <p ng-if="titleText== undefined" class="default-color fs-11 bold title">Upload Attachments</p>
+      <p ng-if="titleText !=''" class="default-color fs-11 bold title">{{titleText}}</p>
+    </div>
+
+
+    <ul class="horizontal-scroll-ul">
+      <li ng-if="showAddAttachment == 'true'">
+        <p class="img-p" ngf-resize="{quality: .2}" ngf-select="attachmentsFile($files,$invalidFiles)"
+          ngf-pattern="'image/*,video/*,application/pdf'" ngf-multiple="true">
+          <img class="full-image" src="img/attachment.svg">
+        </p>
+      </li>
+      <li ng-repeat="f in attachments" ng-if="showAddAttachment == 'true'">
+
+        <p class="img-p">
+          <img class="full-image" ng-click="openSlideBox($index)" ngf-src="f[0]" ng-if="f[1]=='img'"
+            on-hold="onHoldRemoveImg(attachments,$index)">
+
+          <a ng-if="f[1]=='pdf'" target="_blank" ng-href="{{f[0]}}" download>
+            <img class="full-image" src="img/pdf-icon.png" on-hold="onHoldRemoveImg(attachments,$index)">
+          </a>
+
+
+          <video style="width: 60px;height: 60px;" class="full-image" ng-click="openSlideBox($index)" controls
+            ngf-src="f[0]" ng-if="f[1]=='video'" on-hold="onHoldRemoveImg(attachments,$index)"></video>
+        </p>
+
+      </li>
+
+      <li ng-repeat="f in attachments" ng-if="showAddAttachment != 'true'">
+
+        <p class="img-p">
+          <img class="full-image" ng-click="openSlideBox($index)" ngf-src="f[0]" ng-if="f[1]=='img'">
+
+          <a ng-if="f[1]=='pdf'" target="_blank" ng-href="{{f[0]}}" download>
+            <img class="full-image" src="img/pdf-icon.png">
+          </a>
+
+          <video style="width: 60px;height: 60px;" class="full-image" ng-click="openSlideBox($index)" ngf-src="f[0]"
+            ng-if="f[1]=='video'"></video>
+        </p>
+
+      </li>
+      <li ng-show="imageProgress">
+        <p class="img-p">
+          <img class="full-image loader" src="img/ajax-oaderimg.svg">
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="orverflowhide">
+  <div class="row profile-div">
+    <div class="scrolling-wrapper-flexbox">
+
+      <div class="pl-pr-5" ng-if="showAddAttachment == 'true'" ngf-resize="{quality: .2}"
+        ngf-select="attachmentsFile($files,$invalidFiles)" ngf-pattern="'image/*,video/*,application/pdf'"
+        ngf-multiple="true">
+        <img class="" src="img/attachment.svg">
+      </div>
+
+      <div class="pl-pr-5" ng-repeat="f in attachments" ng-if="showAddAttachment == 'true'">
+        <img class="" ng-click="openSlideBox($index)" ngf-src="f[0]" ng-if="f[1]=='img'"
+          on-hold="onHoldRemoveImg(attachments,$index)">
+
+        <a ng-if="f[1]=='pdf'" target="_blank" ng-href="{{f[0]}}" download>
+          <img class="" src="img/pdf-icon.png" on-hold="onHoldRemoveImg(attachments,$index)">
+        </a>
+
+        <video style="width: 60px;height: 60px;" class="" ng-click="openSlideBox($index)" controls ngf-src="f[0]"
+          ng-if="f[1]=='video'" on-hold="onHoldRemoveImg(attachments,$index)"></video>
+
+      </div>
+
+      <div class="pl-pr-5" ng-repeat="f in attachments" ng-if="showAddAttachment != 'true'">
+        <img class="" ng-click="openSlideBox($index)" ngf-src="f[0]" ng-if="f[1]=='img'">
+
+        <a ng-if="f[1]=='pdf'" target="_blank" ng-href="{{f[0]}}" download>
+          <img class="" src="img/pdf-icon.png">
+        </a>
+
+        <video style="width: 60px;height: 60px;" class="" ng-click="openSlideBox($index)" ngf-src="f[0]"
+          ng-if="f[1]=='video'"></video>
+
+      </div>
+
+      <div class="pl-pr-5" ng-show="imageProgress">
+        <img class="loader" src="img/ajax-oaderimg.svg">
+      </div>
+    </div>
+
+  </div>
+</div> -->
+
+
+<!-- model popup slidebox start -->
+<script id="templates/slideBox.html" type="text/ng-template">
+  <div class="modal image-modal transparent" ng-click="closeModalDonation()">
+  <ion-pane class="transparent top">
+    <ion-slide-box show-pager="true" on-slide-changed="navSlide(index)" ng-click="$event.stopPropagation();">
+      <ion-slide ng-repeat="f in attachments">
+
+        <img ngf-src="f[0]" alt="slide-box" ng-if="f[1]=='img'">
+        <a ng-if="f[1]=='pdf'" target="_blank" ng-href="{{f[0]}}" download>
+          <img src="img/pdf-icon.png" alt="slide-box">
+        </a>
+
+        <video ng-if="f[1]=='video'" fullscreen="fullscreen" (ended)="videoEnded()" controls>
+          <source ngf-src="f[0]" type="video/mp4">
+        </video>
+
+      </ion-slide>
+    </ion-slide-box>
+  </ion-pane>
+</div>
+
+</script>
+<!-- model popup slidebox end -->

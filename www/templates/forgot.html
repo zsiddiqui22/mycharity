@@ -1,0 +1,51 @@
+<div class="bar bar-header bar-stable forgot-header header-bar">
+    <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50"
+    ng-click="gotoSignin()" >
+      </button>
+        <h1 class="title">Forgot Password</h1>
+      </div>
+      
+<ion-view>
+        <ion-content>
+          <div class="container">
+            <div class="logo-image pad-top-80 text-center">
+                <img class="width-80" src="img/mch_logo.png" alt="">
+            </div>
+            
+            <form name="myForm" novalidate>
+              <div class="list list-inset">
+                <div class="row">
+                  <div class="col">
+                    <label class="item item-input inputborder-theme">
+                      <input type="text" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" name="email_phone" ng-model="forgot.email_phone" placeholder="Email Address" required>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" ng-disabled="myForm.$invalid" class="button-big button button-full button-positive br-2 button-gradiant"
+                        ng-click="submit()">Reset</button>
+                    </div>
+                  </div>
+               
+              </div>
+            </form>
+          
+            
+            <div class="padding-top-20 text-center">
+              <p class="font-size-10 gray-color a-login marg-b-0">
+                    Password reset instructions have been sent to your
+              </p>
+              <p class="font-size-10 gray-color a-login marg-b-0">
+                    registered email address. Please follow the
+              </p>
+              <p class="font-size-10 gray-color a-login marg-b-0">
+                    instructions to reset your password.
+              </p>
+            </div>
+          </div>
+      
+      
+        </ion-content>
+      </ion-view>
+      

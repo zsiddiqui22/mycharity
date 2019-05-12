@@ -1,0 +1,125 @@
+<ion-view>
+  <!-- custom header start -->
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+
+    <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50" ng-click="goBack()">
+        </button>
+      </span>
+      <span class="header-title"><b class="mch">{{title}} </b>&nbsp;Hero</span>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <!-- custom header end -->
+
+  <ion-content class="padding modal-org-create has-subheader">
+    <div class="row">
+      <div class="col text-center">
+        <div class="logoImg">
+          <img class="loaderimg" ng-src="{{create.loaderImg}}" ng-if="create.loaderImg">
+
+          <img ng-if="!create.loaderImg" ng-src="{{create.img_path}}" alt="arrow up" ngf-resize="{quality: .2}"
+            ngf-select="upload($files,  $invalidFiles)" ngf-multiple="true" ngf-pattern="'image/*'">
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <p class="grey-color fs-13 bold">Upload Hero Icon</p>
+      </div>
+    </div>
+
+    <div class="list">
+      <!-- <div class="row">
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="create.govtRegNumb" placeholder="Govt Registration Number" required>
+          </label>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="create.orgName" placeholder="Name" required>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="create.job" placeholder="Job" required>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label class="item item-input">
+            <textarea ng-model="create.orgDesc" placeholder="Description"  rows="4" cols="50" required></textarea>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="item item-input">
+            <input type="text" ng-model="create.orgAddress" placeholder="Hero Location" required ng-readonly="!(create.latitude && create.longitude)">
+            <i class="icon ion-navigate placeholder-icon input-icon-right" style="position: absolute;right: 0;"
+              ng-click="modalOpen();"></i>
+          </div>
+        </div>
+      </div>
+
+      <attachment ng-model="create.attachments" attachments="create.attachments" show-add-attachment="true"></attachment>
+      
+      <div class="row">
+        <div class="col">
+          <button class="button button-full button-positive br-2 button-gradiant" data-ng-disabled="!(create.orgName)"
+            ng-click="submit()">{{btnText}}</button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+
+
+<!-- model popup create organization start -->
+<script id="templates/googlemap.html" type="text/ng-template">
+  <ion-modal-view class="full-modal">
+
+    <!-- <ion-header-bar class="bar">
+        <div class="list list-inset" style="position: absolute;width: 100%;margin: 0;">
+            <div class="item item-input" style="padding: 0px 16px 0px 16px;">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input id="pac-input" type="text" placeholder="Search">
+              <i ng-click="currentLocation();" class="icon ion-android-locate placeholder-icon"></i>
+            </div>
+          </div>
+    </ion-header-bar> -->
+
+  <ion-content class="padding modal-org-create" has-bouncing="false">
+
+    <div class="list list-inset" style="position: absolute;width: 100%;margin: 0;">
+      <div class="item item-input" style="padding: 0px 16px 0px 16px;">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input id="pac-input-hero" type="text" placeholder="Search" data-tap-disabled="true" ng-click="disableTap()">
+        <i ng-click="currentLocation();" class="icon ion-android-locate placeholder-icon"></i>
+      </div>
+    </div>
+
+    <div id="hero-map" class="map-full"></div>
+
+  </ion-content>
+  <ion-footer-bar class="bar-royal">
+      <div class="title">
+          <button ng-click="modal.hide()" style="width: 50%;text-align: left;" class="button icon ion-ios7-close-empty button-clear width-100 top-6 icon-bigger"></button>
+          <button style="width: 50%;text-align: right;" ng-click="modal.hide()" class="button icon ion-ios7-checkmark-empty button-clear width-100 top-6 icon-bigger"></button>
+      </div>
+    </ion-footer-bar>
+
+</ion-modal-view>
+</script>
+<!-- model popup create organization end -->

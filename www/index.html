@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/ionic.app.min.css">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="font/poppin-sen-black.css" rel="stylesheet">
+  <link href="font/poppin-sen-bold.css" rel="stylesheet">
+  <link href="font/poppin-sen-regular.css" rel="stylesheet">
+  <link href="font-american-typewriter/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="lib/angularjs-slider/dist/rzslider.css" />
+  <link href="css/style.css" rel="stylesheet">
+  <link href="lib/ionic-toast/toast.css" rel="stylesheet">
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+  <!-- ionic/angularjs js -->
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+      <!-- vertical drawer start -->
+      <!-- <link href="lib/rylli-drawer-vertical/src/ionic.contrib.drawer.vertical.css" rel="stylesheet">
+      <script src="lib/rylli-drawer-vertical/src/ionic.contrib.drawer.vertical.js"></script> -->
+      <!-- vertical drawer end -->
+  <!-- Angular Material Library start-->
+  <!-- <script src="lib/ng-material/angular-aria.min.js"></script> -->
+  <!-- <script src="lib/ng-material/angular-messages.min.js"></script> -->
+  <!-- <script src="lib/ng-material/angular-material.min.js"></script> -->
+  <!-- Angular Material Library end-->
+
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+
+
+  
+  <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="lib/angular-clipboard/angular-clipboard.js"></script>
+  <script src="lib/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+  <script src="lib/ng-file-upload/dist/ng-file-upload.min.js"></script>
+
+  <script src="cordova.js"></script>
+
+
+  <!-- your app's js -->
+  <script src="lib/moment/moment.js"></script>
+  <script src="lib/angularjs-slider/dist/rzslider.min.js"></script>
+
+  <script src="lib/ionic-toast/ionic-toast.js"></script>
+  <script src="lib/google-map/markerclusterer.js"></script>
+  <script type="text/javascript" async defer src="https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDEmI38xKllEw5zXQ6rO0jM4mkeQGw8_5Q"></script>
+     <!-- <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;&address=STREET_ADDRESS&key=AIzaSyDEmI38xKllEw5zXQ6rO0jM4mkeQGw8_5Q'></script> -->
+  <script src="js/es5/app.js"></script>
+  <script src="js/es5/services.js"></script>
+  <script src="js/es5/controllers.js"></script>
+  <script src="js/es5/organizationprofile.js"></script>
+  <script src="js/es5/projectprofile.js"></script>
+  <script src="js/es5/challangeprofile.js"></script>
+  <script src="js/es5/discovermap.js"></script>
+  <script src="js/es5/heroprofile.js"></script>
+  <script src="js/es5/fancy-select.directive.js"></script>
+  <script src="js/es5/ng-truncate-text.js"></script>
+  <!-- <script src="js/es5/directive.js"></script> -->
+  <!-- <script src="https://js.stripe.com/v3/"></script> -->
+  <script type="text/javascript" src="lib/angular-payments/lib/angular-payments.js">
+  </script>
+
+<script src="lib/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
+<script>
+    // for global instance
+    var socket = io('https://api.mycharityhero.co.uk:8890');
+</script>
+</head>
+
+<body ng-app="starter">
+  <ion-nav-view></ion-nav-view>
+</body>
+
+</html>

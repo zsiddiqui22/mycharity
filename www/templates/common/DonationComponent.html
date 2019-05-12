@@ -1,0 +1,314 @@
+
+<button class="button button-balanced btn-small fs-9"  ng-click="showDonation(item)">
+        DONATE
+</button> 
+
+
+
+
+
+  <!-- model popup donation start -->
+  <script id="templates/donataion.html" type="text/ng-template">
+    <ion-modal-view class="sm-model donate-now">
+    <ion-header-bar class="bar bar-header bar-positive forgot-header">
+      <span class="title "> Donate Now</span>
+      <button class="button button-icon button-clear ion-ios7-close-empty" ng-click="closeModalDonation()"></button>
+    </ion-header-bar>
+    <ion-content class="padding modal-org-create">
+
+      <div class="row padding ">
+        <p class="light-color fs-13 text-center width-100">
+          {{profile.name}}
+        </p>
+      </div>
+
+
+      <div class="doantion-popup-scroll">
+        <div ng-repeat="obj in donate.paymore track by $index">
+
+          <div class="row responsive-sm" ng-if="orgList">
+            <div class="col">
+              <label class="item item-input item-select">
+                <div class="input-label light-color">
+                  Organization
+                </div>
+                <select class="light-color" ng-model="obj.organization_id" ng-change="changeOrg(obj.organization_id,$index)"
+                  ng-options="obj.orginization.id as obj.orginization.name for obj in orgList track by obj.id" required>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="row responsive-sm">
+            <div class="col">
+              <label class="item item-input item-select">
+                <div class="input-label light-color">
+                  Currency
+                </div>
+                <select class="light-color" ng-init="obj.currency = currency[0]" ng-model="obj.currency" ng-options="obj for obj in obj.currency_repeat track by obj">
+                </select>
+              </label>
+            </div>
+
+            <div class="col">
+              <label class="item item-input">
+                <input class="btn-xs" type="number" ng-model="obj.amount" ng-init="obj.amount = 10" placeholder="Amount">
+              </label>
+            </div>
+
+            <button class="button button-icon ion-ios7-trash fs-30 assertive" ng-click="removeNewPaymore()" ng-show="donate.paymore.length > 1 && $index !== 0"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="button button-full button-positive br-2 button-gradiant" ng-if="orgList" ng-click="addNewPaymore()">Add Another</button>
+
+
+      <div class="row">
+        <div class="col">
+          <ion-list class="no-border-item">
+            <ion-checkbox class="light-color fs-13" ng-model="donate.anonymous">Anonymous</ion-checkbox>
+          </ion-list>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="item item-input item-select">
+            <div class="input-label light-color">
+              Donation to My Charity Hero
+            </div>
+            <select class="form-control select-max-width-40" ng-model="donate.charity">
+                <option value="0">0%</option>
+                <option value="2">2%</option>
+                <option value="5">5%</option>
+                <option value="10">10%</option>                
+                <option value="15">15%</option>                
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="button button-full button-positive br-2 button-gradiant" data-ng-disabled="checkAddMore(donate.paymore)"
+            ng-click="alreadyCardShow()">Donate Now</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <ion-list class="no-border-item">
+            <ion-checkbox class="light-color fs-13 gitf-ad" ng-model="donate.gift_aid">
+              I want to Gift Aid my donation and any donations I make in the future or have made in the past 4 years,
+              to
+              the Charity. I am a UK taxpayer and understand that if I pay less Income Tax and/or Capital Gains Tax
+              than
+              the amount of Gift Aid claimed on all of my donations in that tax year it is my responsibility to pay any
+              difference.</ion-checkbox>
+          </ion-list>
+        </div>
+      </div>
+
+    </ion-content>
+  </ion-modal-view>
+  </script>
+  <!-- model popup donation end -->
+
+  <!-- model popup thankyou start -->
+  <script id="templates/thankyou.html" type="text/ng-template">
+    <ion-modal-view class="sm-model thankyoumsg" >
+    <ion-content class="padding modal-org-create">
+
+      <div class="row imgmain">
+      <img src="img/checked.svg" alt="checked">
+      </div>
+     <div>
+       <h4 class="text-center grey-color bold">
+         Thank you for your donation
+       </h4>
+     </div>
+    </ion-content>
+  </ion-modal-view>
+  </script>
+  <!-- model popup thankyou end -->
+
+  <!-- model popup alreay save start -->
+  <script id="templates/alreadysave.html" type="text/ng-template">
+    <ion-modal-view class="sm-model donate-now">
+    <ion-header-bar class="bar bar-header bar-positive forgot-header">
+
+      <span class="title "> Select Payment </span>
+      <button class="button button-icon button-clear ion-ios7-close-empty" ng-click="closeModalAlreadySave()"></button>
+    </ion-header-bar>
+    <ion-content class="padding modal-org-create">
+
+      <div class="row padding ">
+        <p class="light-color fs-13 text-center width-100">
+          Select your Card
+        </p>
+      </div>
+      <div class="row responsive-sm">
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="donate.name" placeholder="Name">
+          </label>
+        </div>
+
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="donate.address" placeholder="Address">
+          </label>
+        </div>
+      </div>
+      <div class="row responsive-sm">
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="donate.postcode" placeholder="Post Code" required>
+          </label>
+        </div>
+
+        <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="donate.city" placeholder="City" required>
+          </label>
+        </div>
+
+      </div>
+
+    <div class="row">
+      <div class="col">
+          <label class="item item-input">
+            <input type="text" ng-model="donate.email" placeholder="Email" required>
+          </label>
+        </div>
+    </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="item item-input item-select">
+            <div class="input-label light-color">
+              Cards
+            </div>
+            <select class="light-color" ng-model="donate.paymentMethod" 
+            ng-options="obj.id as '**** **** **** '+ obj.last_digits for obj in cards track by obj.id"
+              required>
+            </select>
+          </label>
+        </div>
+        <div class="col-20">
+          <button class="button button-full button-positive br-2 button-gradiant doantion-pay-btn"
+          data-ng-disabled="!(donate.paymentMethod && (donate.gift_aid == true ? donate.name && donate.postcode: true))"
+            ng-click="alreadyCard(0)">Pay</button>
+        </div>
+      </div>
+
+      <div class="row responsive-sm">
+        <div class="col">
+            <button class="button button-full button-positive br-2 button-gradiant"
+            ng-click="addCard()">Add Card</button>
+        </div>
+        <div class="col">
+            <button class="button button-full button-positive br-2 button-gradiant"
+            data-ng-disabled="!(donate.email)"
+            ng-click="alreadyCard(1)">Will Pay by Bank Transfer</button>
+        </div>
+      </div>
+    </div>
+    </ion-content>
+  </ion-modal-view>
+  </script>
+  <!-- model popup alreay save end -->
+
+  <!-- model popup card not save start -->
+  <script id="templates/notsave.html" type="text/ng-template">
+    <ion-modal-view class="sm-model donate-now">
+    <ion-header-bar class="bar bar-header bar-positive forgot-header">
+
+      <span class="title "> Add Payment</span>
+      <button class="button button-icon button-clear ion-ios7-close-empty" ng-click="closeModalNotSave()"></button>
+    </ion-header-bar>
+    <ion-content class="padding modal-org-create">
+
+      <div class="row">
+        <div class="col">
+          <ion-list class="no-border-item">
+            <ion-checkbox class="light-color fs-13" ng-model="donate.future_save">Save Card for Future</ion-checkbox>
+          </ion-list>
+        </div>
+      </div>
+
+      <form ng-cloak name="creditcard_form" class="form-validation" novalidate ng-submit="submitCreditCard(donate, creditcard_form)">
+
+        <div class="list" ng-if="donate.btnStripe">
+
+          <div class="row responsive-sm">
+            <div class="col">
+              <label class="item item-input">
+                <input type="text" ng-model="donate.name" placeholder="Name">
+              </label>
+            </div>
+
+            <div class="col">
+              <label class="item item-input">
+                <input type="text" ng-model="donate.address" placeholder="Address">
+              </label>
+            </div>
+          </div>
+
+          <div class="row responsive-sm">
+            <div class="col">
+              <label class="item item-input">
+                <input type="text" ng-model="donate.postcode" placeholder="Post Code" required>
+              </label>
+            </div>
+
+            <div class="col">
+              <label class="item item-input">
+                <input type="text" ng-model="donate.city" placeholder="City" required>
+              </label>
+            </div>
+          </div>
+
+
+          <div class="row responsive-sm">
+            <div class="col">
+              <label class="item item-input">
+                <input type="text" ng-model="donate.number" placeholder="9999 9999 9999 9999" payments-format="card"
+                  payments-validate="card" required>
+              </label>
+            </div>
+
+            <div class="col">
+              <label class="item item-input">
+                <input type="text" ng-model="donate.cvc" placeholder="999" payments-format="cvc" payments-validate="cvc"
+                  required>
+              </label>
+            </div>
+          </div>
+
+          <div class="row responsive-sm">
+            <div class="col">
+              <label class="item item-input">
+
+                <input type="text" name="expiry" ng-model="donate.expiry" placeholder="MM / YY" payments-format="expiry"
+                  payments-validate="expiry" required>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button class="button button-full button-positive br-2 button-gradiant" data-ng-disabled="!(donate.number && donate.expiry && donate.cvc)"
+              type="submit">Pay With Card</button>
+          </div>
+        </div>
+      </form>
+      </div>
+
+      </div>
+    </ion-content>
+  </ion-modal-view>
+  </script>
+  <!-- model popup card not save end -->

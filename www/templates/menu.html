@@ -1,0 +1,141 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content >
+    <!-- <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar> -->
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar class=" bar-profile">
+
+        <div class="profile" ng-if="role == 'user'" ui-sref="app.hero-profile({'id': user_id})" ng-click="toastClose()" >
+            <img class="profile-picture" ng-src="{{image}}" src="./img/default.jpg" />
+            <h3 class="name">{{user_name}}</h3>
+            <h5 class="name">{{user_email}}</h5>
+          </div>
+
+      <div class="profile" ng-if="role != 'user'" >
+        <img class="profile-picture" ng-src="{{image}}" src="./img/default.jpg" />
+        <h3 class="name">{{user_name}}</h3>
+      </div>
+      
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        
+        <ion-item menu-close ng-if="role == 'user'" 
+        class="light-color"
+        ui-sref="app.hero-profile({'id': user_id})"
+          ui-sref-active="active_state" ng-click="toastClose()" >
+          My Profile
+        </ion-item>
+        <!-- <ion-item menu-close ui-sref-active="active_state"
+        class="light-color">
+          Ask for Donation
+        </ion-item> -->
+        <!-- <ion-item menu-close ui-sref-active="active_state"
+        class="light-color">
+          Help & Settings
+        </ion-item> -->
+        <!-- <ion-item menu-close
+        class="light-color">
+          Notification Settings
+        </ion-item> -->
+        <!-- <ion-item menu-close
+        class="light-color">
+          User Rol Settings
+        </ion-item> -->
+        <ion-item menu-close
+        ui-sref="app.payments({'iredirectd': '','redirectid': ''})"
+           ui-sref-active="active_state" ng-click="toastClose()"
+        class="light-color">
+          Payment Settings
+        </ion-item>
+        <!-- <ion-item menu-close ui-sref-active="active_state"
+        class="light-color">
+          Term & Policies
+        </ion-item> -->
+        <ion-item menu-close href="https://mycharityhero.co.uk/MyCharityHeroadmin/client/index.html#!/authentication/signin"
+        class="light-color" ng-click="toastClose()">
+          Admin Panel
+        </ion-item>
+        <ion-item menu-close target="_blank" href="https://www.mycharityhero.com"
+        class="light-color" ng-click="toastClose()">
+        About Us
+        </ion-item>
+        <ion-item menu-close target="_blank" href="https://www.mycharityhero.com/Terms.html"
+        class="light-color" ng-click="toastClose()">
+        Terms & Condition
+        </ion-item>
+        <ion-item menu-close href="#/login" ng-if="role == 'guest'"
+        class="light-color" ng-click="toastClose()">
+          Login
+        </ion-item>
+        <ion-item menu-close ng-click="logout();" ng-if="role == 'user'" ui-sref-active="active_state"
+        class="light-color" ng-click="toastClose()">
+          Logout
+        </ion-item>
+
+        <!-- 
+        <ion-item menu-close href="#/app/browse">
+          Browse
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists">
+          Playlists
+        </ion-item> -->
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
+
+
+<!-- model popup create organization start -->
+<script id="templates/notification_modal.html" type="text/ng-template">
+  <ion-modal-view class="full-modal">
+  <ion-header-bar class="bar bar-header bar-positive forgot-header">
+    <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50" ng-click="notificationHide()">
+    </button>
+    <h1 class="title header-title">Notification</h1>
+  </ion-header-bar>
+  <ion-content class="padding modal-org-create">
+
+    <div class="list">
+
+      <!-- item 1 start -->
+      <div class="list card card-rm-boundry" ng-repeat="item in notifications | filter:timeAgo">
+        <a class="item item-thumbnail-left list-border-hide-l-r-t" >
+            <img class="br-50" ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}">
+          <div class="col">
+            <b class="fs-13 default-color">{{item.data.title}}</b>
+            <!-- <span class="fs-13 float-right fs-11 green-color">{{item.data}}</span> -->
+          </div>
+          <b class="fs-13 grey-color full-text">{{item.data.description}}</b>
+          
+          <p class="fs-11 grey-color">{{item.time_ago}}</p>
+        </a>
+        <div class="row" ng-if="item.data.type.toLowerCase() == 'association' && item.status == 0">
+          <div class="col-30">  
+            <button class="button button-positive btn-small fs-9" ng-click="statusNotification('approve',item)" >
+              APPROVE
+            </button>
+            <button class="button button-balanced btn-small fs-9" ng-click="statusNotification('reject',item)">
+              REJECT
+            </button>
+          </div>
+
+        </div>
+      </div>
+    <!-- item 1 end -->
+    </div>
+  </ion-content>
+</ion-modal-view>
+</script>
+
+<!-- model popup create organization end -->

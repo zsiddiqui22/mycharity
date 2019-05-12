@@ -1,0 +1,566 @@
+<ion-view hide-back-button="true">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+
+    <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-navicon display-block" menu-toggle="left">
+        </button>
+      </span>
+      <span class="header-title"><b class="mch">MCH </b>&nbsp Heros</span>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons class="c-header" side="right">
+      <button class="button button-icon icon" ng-click="gotoMapsearch('true')">
+        <img src="./img/search.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+        <img src="./img/chat-bubble.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="NOTIFICATIONMODAL()">
+        <img src="./img/bell.svg">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <!-- <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </span>
+      <span class="header-title"><b class="mch">MCH </b>&nbsp Heros</span>
+    </ion-nav-buttons>
+    <ion-nav-buttons class="c-header" side="right">
+      <button class="button button-icon icon" ng-click="vm.goToScheduleMap()">
+        <img src="./img/search.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+        <img src="./img/chat-bubble.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+        <img src="./img/bell.svg">
+      </button>
+    </ion-nav-buttons> -->
+  <!-- main header end -->
+
+  <!-- sub header start -->
+  <div class="bar bar-subheader custom-header">
+
+    <div class="row row-center">
+      <a class="col text-center decorate-none" ui-sref="app.discover">
+        <div class="button button-icon icon">
+          <img src="./img/home.svg">
+          <p>Home</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.organization.suggested">
+        <div class="button button-icon icon">
+          <img src="./img/organization.svg">
+          <p>Organizations</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.project.suggested">
+        <div class="button button-icon icon">
+          <img src="./img/projects.svg">
+          <p>Projects</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.challenges.suggested">
+        <div class="button button-icon icon">
+          <img src="./img/challenges.svg">
+          <p>Challenges</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.heroes.past">
+        <div class="button button-icon icon">
+          <img src="./img/heroes_active.svg">
+          <p>Heroes</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- sub header end  -->
+
+  <ion-content class="has-subheader has-footer" has-bouncing="false" overflow-scroll="true" id="scrollDiv">
+
+    <!-- item 1 start -->
+    <div class="list card card-rm-boundry profile-view no-shadow marg-b-0">
+      <div class="item item-thumbnail-left list-border-hide-l-r-t border-width0">
+        <img ng-src="{{!profile.image ? './img/default.jpg' : imagePath+profile.image}}">
+        <div class="row pb-0">
+          <div class="col pb-0">
+            <b class="fs-13 default-color">{{profile.name}}</b>
+
+            <button class="button button-positive-revert btn-xs-profile fs-9 float-right" ng-if="profile.support == true"
+              ng-click="usSupportedType()">
+              SUPPORTED
+            </button>
+            <button class="button button-positive btn-xs-profile fs-9 float-right" ng-if="profile.support != true"
+              ng-click="supportedType()">
+              SUPPORT
+            </button>
+          </div>
+        </div>
+        <div class="row pb-0">
+          <div class="col pb-0">
+            <p class="fs-9 light-color">
+              {{profile.job}}
+            </p>
+          </div>
+        </div>
+        <div class="row pt-5">
+          <div class="col pb-0">
+            <b class="fs-9 light-color" ng-if="profile.address">
+              <i class="ion-location font-medium txt-sub"></i>
+              <abbr class="light-color fs-12" ng-text-truncate="profile.address" ng-tt-chars-threshold="25"
+                ng-tt-no-toggling></abbr>
+            </b>
+            <div class="btn-xs-btn fs-9 float-right">
+              <donation-button data="{{item}}" type="user" display="display()">
+              </donation-button>
+            </div>
+            <!-- <button class="button button-balanced btn-xs fs-9 float-right" ng-click="showDonation()">
+              DONATE
+            </button> -->
+            <span class="fs-13 float-right fs-11 green-color card-chat-cion-profile"> <img class="width-15"
+                src="img/chat.svg" alt=""></span>
+          </div>
+        </div>
+        <div class="row pt-15">
+          <div class="col-30">
+            <button ng-if="profile.isEditable" class="button button-positive btn-xs-profile btn-xs-profile-icon fs-9 icon-left ion-ios7-plus-empty"
+              ng-click="associationmodal.show();">
+              ADD
+            </button>
+            <button ng-if="profile.isEditable" ng-click="gotoEdit()"
+              class="button button-positive btn-xs-profile btn-xs-profile-icon-1 fs-9 icon-left ion-edit before-font-size11">
+              EDIT
+            </button>
+            <button
+              class="button button-outline button-positive btn-xs-profile btn-xs-profile-icon-1 fs-9 icon-left ion-android-share before-font-size11"
+              clipboard type="button" class="btn btn-secondary" id="copyButton" text="textToCopy" on-copied="success()"
+              on-error="fail(err)" data-toggle="tooltip" data-original-title="Copy Text" title="{{copyButtonToolTip}}">
+              SHARE
+            </button>
+
+            <span class="fs-14 grey-color">
+                <img class="width-15" src="img/supporter.svg" alt="">
+                <b> {{profile.supporters ? profile.supporters : 0}}</b>
+  
+              </span>
+              &nbsp;
+              <span class="fs-14 grey-color">
+                <img class="width-15" src="img/donor.svg" alt="">
+                <b> {{profile.donors ? profile.donors : 0}}</b>
+              </span>
+              &nbsp;
+              <span class="fs-14 grey-color">
+                <img class="width-15" src="img/celebrity.svg" alt="">
+                <b> {{profile.Celebrities ? profile.Celebrities : 0}}</b>
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="row padding">
+      <p class="light-color fs-13" ng-text-truncate="profile.desc" ng-tt-chars-threshold="700" ng-tt-more-label="Show"
+        ng-tt-less-label="Hide"></p>
+    </div>
+
+    <div ng-show="isAttachment">
+    <attachment ng-model="profile.attachments" attachments="profile.attachments" title-text="Attachments"
+      show-add-attachment="false"></attachment>
+      </div>
+    <!-- attachment start -->
+  
+    <!-- attachment end -->
+    <div ng-if="profile.organizations.length > 0 || profile.projects.length > 0 || profile.challenges.length > 0">
+      <!-- filter start -->
+      <div class="row row-center bg-color-white ">
+          <a class="col text-center proifle-col-pad">
+              <div class="fs-13" ng-click="profile.btnOrganizations=true;profile.btnPro=false;profile.btnCHal=false;"
+                ng-class="{'profile-tabSelect': profile.btnOrganizations,'profile-tabUnselect': !profile.btnOrganizations}">
+                <img ng-src="{{profile.btnOrganizations ? './img/organizations.svg' : './img/organizations-white.svg'}}" class="width-40">
+                <p class="marg-b-0">
+                    Organization
+                </p>
+              </div>
+            </a>
+      
+            <a class="col text-center proifle-col-pad">
+                <div class="fs-13" ng-click="profile.btnPro=true;profile.btnOrganizations=false;profile.btnCHal=false;"
+                  ng-class="{'profile-tabSelect': profile.btnPro,'profile-tabUnselect': !profile.btnPro}">
+                   <img ng-src="{{profile.btnPro ? './img/project.svg' : './img/project-white.svg'}}"
+                   class="width-40">
+                  <p class="marg-b-0">
+                      Projects
+                  </p>
+                </div>
+              </a>
+
+        <a class="col text-center proifle-col-pad">
+            <div class="fs-13" ng-click="profile.btnCHal=true;profile.btnOrganizations=false;profile.btnPro=false;"
+              ng-class="{'profile-tabSelect': profile.btnCHal,'profile-tabUnselect': !profile.btnCHal}">
+              <img ng-src="{{profile.btnCHal ? './img/challenge.svg' : './img/challenge-white.svg'}}" class="width-40">
+              <p class="marg-b-0">
+                  Challenges
+              </p>
+            </div>
+          </a>
+      </div>
+    
+    </div>
+
+    <!-- attachment start -->
+    <div class="orverflowhide">
+
+      <div class=" profile-div">
+        <div class="row" ng-if="profile.btnOrganizations">
+          <show-more id-type="user" type="organization" page="0" title-name="{{profile.name}}" display="display()"
+            ng-if="profile.organizations.length > 0">
+          </show-more>
+          <!-- organizations start -->
+          <div class="scrolling-wrapper-flexbox">
+
+            <div class="light-color fs-11 text-center" ng-if="profile.organizations.length == 0">
+              Record not found
+            </div>
+            <div class="pl-pr-5" ng-repeat="item in profile.organizations"
+              ng-click="gotoStateGlobal('app.profile',item.id)">
+              <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}" alt="">
+              <p class="fs-9 light-color text-center">{{item.name.length > 7 ? item.name.substring(0, 7)+ '...':
+                        item.name}}</p>
+            </div>
+          </div>
+          <!-- organizations end -->
+        </div>
+
+        <div class="row" ng-if="profile.btnPro">
+          <show-more id-type="user" type="project" page="0" title-name="{{profile.name}}" display="display()"
+            ng-if="profile.projects.length > 0">
+          </show-more>
+          <!-- project start -->
+          <div class="scrolling-wrapper-flexbox">
+
+            <div class="light-color fs-11 text-center" ng-if="profile.projects.length == 0">
+              Record not found
+            </div>
+
+            <div class="pl-pr-5" ng-repeat="item in profile.projects"
+              ng-click="gotoStateGlobal('app.project-profile',item.id)">
+              <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}" alt="">
+              <p class="fs-9 light-color text-center">{{item.name.length > 7 ? item.name.substring(0, 7)+ '...':
+                      item.name}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- project end -->
+
+
+        <div class="row" ng-if="profile.btnCHal">
+          <show-more id-type="user" type="challenge" page="0" title-name="{{profile.name}}" display="display()"
+            ng-if="profile.challenges.length > 0">
+          </show-more>
+          <!-- project start -->
+          <div class="scrolling-wrapper-flexbox">
+
+            <div class="light-color fs-11 text-center" ng-if="profile.challenges.length == 0">
+              Record not found
+            </div>
+            <div class="pl-pr-5" ng-repeat="item in profile.challenges"
+              ng-click="gotoStateGlobal('app.challenge-profile',item.id)">
+              <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}" alt="">
+              <p class="fs-9 light-color text-center">{{item.name.length > 7 ? item.name.substring(0, 7)+ '...':
+                            item.name}}</p>
+            </div>
+          </div>
+          <!-- project end -->
+        </div>
+
+      </div>
+
+      <hr>
+    </div>
+    <!-- attachment end -->
+ 
+    <!-- comments section start -->
+    <div class="mc-commentsarea">
+      <div ng-repeat="item in profile.comment | orderBy:'-id'">
+        <!-- comments start -->
+        <div class="mc-commentsarea--box" id="{{ 'comment-' + item.id }}" on-hold="onHold(item)">
+          
+          <div class="mc-commentsarea--options">
+              <img src="../../img/menu-dots.svg" alt="">
+              <ul>
+                <li><a ng-click="deletComment(item)"><em class="fa fa-times-circle-o"></em> Delete</a></li>
+              </ul>
+          </div>
+
+          
+            <div class="clearfix">
+                <a ng-click="gotoCommentProfile(item.user.id)"><img class="mc-commentsarea--thumbnail" ng-src="{{item.user.image== null ? './img/default.jpg' : imagePath+item.user.image}}"  alt=""></a>
+                <h2 class="heading">
+                    <span class="mc-commentsarea--username">{{item.user.name}} </span>
+                    <span class="mc-commentsarea--icon ico-donor">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512px" height="512px">
+                          <g>
+                            <g>
+                              <path d="M467.76,88.1c-1.87-1.87-4.44-2.931-7.071-2.931c-2.64,0-5.21,1.061-7.081,2.931c-1.859,1.859-2.92,4.43-2.92,7.07    c0,2.63,1.061,5.211,2.92,7.071c1.87,1.86,4.44,2.93,7.081,2.93c2.63,0,5.201-1.069,7.071-2.93c1.86-1.86,2.92-4.44,2.92-7.071    C470.68,92.53,469.62,89.959,467.76,88.1z" fill="#3dc2cf"/>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path d="M238.071,323.626c-1.869-1.87-4.44-2.931-7.071-2.931c-2.64,0-5.211,1.061-7.081,2.931c-1.859,1.859-2.92,4.43-2.92,7.07    c0,2.63,1.061,5.21,2.92,7.071c1.87,1.86,4.44,2.93,7.081,2.93c2.63,0,5.201-1.069,7.071-2.93c1.86-1.86,2.92-4.44,2.92-7.071    C240.992,328.056,239.932,325.485,238.071,323.626z" fill="#3dc2cf"/>
+                            </g>
+                          </g>
+                          <g>
+                            <g>
+                              <path d="M491.983,121.313c-2.73-4.802-8.838-6.48-13.637-3.75c-4.801,2.73-6.48,8.836-3.749,13.637    c29.706,52.238,20.738,118.438-21.81,160.985l-7.583,7.583c-1.832-4.807-4.67-9.316-8.537-13.182L333.911,183.831    c6.72-3.306,12.929-7.717,18.38-13.168l19.708-19.709c3.905-3.905,3.905-10.238,0-14.143c-3.906-3.905-10.237-3.905-14.144,0    l-19.708,19.709c-9.259,9.258-21.568,14.357-34.661,14.357h-39.397c-2.652,0-5.195,1.054-7.072,2.929l-30.16,30.16    c-8.956,8.957-23.529,8.957-32.485,0c-8.957-8.956-8.957-23.529,0-32.485l68.856-68.855C305.307,60.546,371,51.292,422.975,80.122    c4.83,2.677,10.918,0.936,13.597-3.895c2.679-4.83,0.935-10.918-3.895-13.597c-28.668-15.899-62.444-22.262-95.112-17.911    c-30.572,4.071-58.555,16.872-81.493,37.184C227.893,56.922,192.02,43.261,154.04,43.261c-41.146,0-79.828,16.023-108.923,45.117    S0,156.157,0,197.302c0,41.146,16.023,79.828,45.117,108.923l3.769,3.769c0.656,0.655,1.384,1.191,2.153,1.626    c0.669,8.652,4.294,17.116,10.897,23.718c7.349,7.348,16.997,11.02,26.648,11.02c0.501,0,1.003-0.016,1.504-0.036    c-0.02,0.506-0.037,1.012-0.037,1.521c0,10.066,3.92,19.53,11.038,26.648c7.349,7.348,16.997,11.021,26.648,11.02    c0.501,0,1.003-0.016,1.504-0.036c-0.02,0.506-0.037,1.012-0.037,1.521c0,10.066,3.92,19.53,11.039,26.648    c7.348,7.347,16.998,11.02,26.648,11.02c0.507,0,1.014-0.016,1.521-0.036c-0.406,10.151,3.251,20.437,10.984,28.171    c7.119,7.118,16.583,11.038,26.648,11.038c10.067,0,19.531-3.92,26.648-11.038l13.977-13.978l18.879,18.877    c7.118,7.119,16.582,11.039,26.648,11.039c10.066,0,19.53-3.92,26.648-11.038c7.826-7.826,11.482-18.267,10.972-28.537    c0.628,0.031,1.258,0.049,1.887,0.049c9.651,0,19.303-3.673,26.65-11.021c7.729-7.729,11.386-18.007,10.984-28.153    c0.506,0.02,1.012,0.037,1.521,0.037c10.066,0,19.53-3.92,26.648-11.038c7.729-7.729,11.386-18.007,10.984-28.153    c0.506,0.02,1.012,0.037,1.521,0.037c10.066,0,19.53-3.92,26.648-11.038c3.615-3.615,6.337-7.791,8.173-12.248    c0.973-0.474,1.888-1.105,2.697-1.913l19.394-19.394C515.824,257.436,526.126,181.354,491.983,121.313z M88.585,326.374    c-4.724,0-9.165-1.839-12.506-5.18c-3.34-3.34-5.18-7.781-5.18-12.505c0-4.723,1.839-9.165,5.18-12.505l17.234-17.234    c3.34-3.341,7.782-5.18,12.506-5.18c4.723,0,9.165,1.839,12.505,5.18c6.896,6.896,6.896,18.115,0,25.01l-17.234,17.235    C97.75,324.534,93.31,326.374,88.585,326.374z M115.235,360.349c-3.341-3.34-5.18-7.782-5.18-12.505    c0-4.724,1.839-9.165,5.18-12.505l17.235-17.235c0,0,0,0,0-0.001c3.34-3.34,7.781-5.18,12.505-5.18    c4.723,0,9.165,1.839,12.505,5.18c6.896,6.896,6.896,18.115,0,25.01l-17.234,17.235    C133.349,367.243,122.127,367.243,115.235,360.349z M154.388,399.502c-3.341-3.34-5.18-7.782-5.18-12.505    c0-4.724,1.839-9.165,5.18-12.505l17.235-17.235c0,0,0,0,0-0.001c3.34-3.34,7.781-5.18,12.505-5.18    c4.724,0,9.165,1.839,12.505,5.18c6.896,6.897,6.896,18.116,0,25.011l-17.235,17.235    C172.503,406.398,161.284,406.398,154.388,399.502z M235.787,421.422l-17.235,17.236c-3.34,3.34-7.781,5.18-12.505,5.18    c-4.723,0-9.165-1.839-12.505-5.18c-6.896-6.897-6.896-18.116,0-25.011l17.235-17.235c0,0,0,0,0-0.001    c3.34-3.34,7.781-5.18,12.505-5.18c4.723,0,9.165,1.839,12.505,5.18c3.341,3.34,5.18,7.782,5.18,12.505    C240.968,413.642,239.128,418.082,235.787,421.422z M422.523,325.739c-3.34,3.341-7.782,5.18-12.505,5.18    c-4.724,0-9.165-1.839-12.505-5.18l-41.627-41.627c-0.002-0.002-0.003-0.003-0.005-0.005l-39.15-39.15    c-3.906-3.905-10.237-3.905-14.144,0c-3.905,3.905-3.905,10.238,0,14.143l80.782,80.78c6.896,6.897,6.896,18.116,0,25.011    c-3.34,3.341-7.782,5.18-12.505,5.18c-4.724,0-9.165-1.839-12.505-5.18l-80.782-80.781c-3.906-3.904-10.237-3.904-14.144,0    c-3.905,3.905-3.905,10.238,0,14.144l39.146,39.145c0.003,0.003,0.006,0.007,0.009,0.01l41.628,41.626    c6.896,6.897,6.896,18.117,0.001,25.012c-6.897,6.896-18.118,6.896-25.011,0l-41.628-41.628c-0.77-0.769-1.635-1.381-2.556-1.847    l-11.873-11.873c-3.906-3.904-10.237-3.904-14.144,0c-3.905,3.905-3.905,10.238,0,14.144l55.702,55.7    c6.896,6.897,6.896,18.116,0,25.011c-3.34,3.341-7.782,5.18-12.505,5.18c-4.724,0-9.165-1.839-12.505-5.18l-21.196-21.195    c1.615-4.237,2.469-8.774,2.469-13.444c0-10.066-3.92-19.53-11.038-26.648c-7.119-7.118-16.583-11.038-26.648-11.038    c-0.509,0-1.015,0.017-1.521,0.037c0.401-10.146-3.255-20.424-10.984-28.153c-7.119-7.118-16.583-11.038-26.648-11.038    c-0.509,0-1.015,0.017-1.521,0.037c0.402-10.146-3.255-20.424-10.984-28.153c-7.119-7.118-16.583-11.038-26.648-11.038    c-0.509,0-1.015,0.017-1.521,0.037c0.402-10.146-3.255-20.424-10.984-28.153c-14.694-14.694-38.605-14.693-53.299,0    l-17.234,17.234c-2.174,2.174-4.017,4.553-5.549,7.071c-23.491-24.951-36.385-57.388-36.385-91.81    c0-35.803,13.942-69.464,39.26-94.78c25.316-25.316,58.978-39.259,94.78-39.259c32.536,0,63.302,11.516,87.644,32.618    l-61.457,61.457c-8.116,8.117-12.586,18.908-12.586,30.386c0,11.479,4.47,22.27,12.586,30.387    c8.378,8.377,19.383,12.566,30.387,12.566s22.009-4.188,30.387-12.566l27.232-27.232h35.253c2.911,0,5.79-0.199,8.634-0.552    l110.403,110.401C429.418,307.625,429.418,318.845,422.523,325.739z" fill="#3dc2cf"/>
+                            </g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          <g>
+                          </g>
+                          </svg>
+                      {{ 150 }}
+                    </span>
+    
+                    <span class="mc-commentsarea--icon ico-donor">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512px" height="512px">
+                      <g>
+                        <g>
+                          <path d="M172.55,391.902c-0.13-0.64-0.32-1.27-0.57-1.88c-0.25-0.6-0.56-1.18-0.92-1.72c-0.36-0.55-0.78-1.06-1.24-1.52    c-0.46-0.46-0.97-0.88-1.52-1.24c-0.54-0.36-1.12-0.67-1.73-0.92c-0.6-0.25-1.23-0.45-1.87-0.57c-1.29-0.26-2.62-0.26-3.9,0    c-0.64,0.12-1.27,0.32-1.88,0.57c-0.6,0.25-1.18,0.56-1.72,0.92c-0.55,0.36-1.06,0.78-1.52,1.24c-0.46,0.46-0.88,0.97-1.24,1.52    c-0.37,0.54-0.67,1.12-0.92,1.72c-0.25,0.61-0.45,1.24-0.57,1.88c-0.13,0.64-0.2,1.3-0.2,1.95c0,0.65,0.07,1.31,0.2,1.95    c0.12,0.64,0.32,1.27,0.57,1.87c0.25,0.61,0.55,1.19,0.92,1.73c0.36,0.55,0.78,1.06,1.24,1.52c0.46,0.46,0.97,0.88,1.52,1.24    c0.54,0.361,1.12,0.671,1.72,0.921c0.61,0.25,1.24,0.45,1.88,0.57c0.64,0.13,1.3,0.2,1.95,0.2c0.65,0,1.31-0.07,1.95-0.2    c0.64-0.12,1.27-0.32,1.87-0.57c0.61-0.25,1.19-0.561,1.73-0.921c0.55-0.36,1.06-0.78,1.52-1.24c0.46-0.46,0.88-0.97,1.24-1.52    c0.36-0.54,0.67-1.12,0.92-1.73c0.25-0.6,0.44-1.23,0.57-1.87s0.2-1.3,0.2-1.95S172.68,392.542,172.55,391.902z" fill="#3dc2cf"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M459.993,394.982c-0.039-0.1-0.079-0.199-0.121-0.297c-9.204-21.537-30.79-29.497-56.336-20.772l-69.668,19.266    c-4.028-12.198-14.075-22.578-28.281-27.85c-0.088-0.032-0.176-0.064-0.265-0.094l-76.581-25.992    c-6.374-8.239-26.34-29.321-63.723-29.321c-26.125,0-49.236,17.922-62.458,37.457H10c-5.523,0-10,4.477-10,10v126.077    c0,5.523,4.477,10,10,10h59.457c5.523,0,10-4.477,10-10v-8.634h27.883c5.523,0,10-4.477,10-10v-2.878    c16.254,1.418,21.6,4.501,36.528,13.109c11.48,6.62,28.831,16.625,60.077,30.674c0.145,0.065,0.292,0.127,0.439,0.185    c5.997,2.359,17.72,6.065,32.173,6.065c10.06,0,21.445-1.797,33.131-7.094l153.991-55.136c0.274-0.098,0.544-0.208,0.808-0.33    C449.204,442.646,471.135,423.563,459.993,394.982z M59.457,473.455H20V367.378h39.457V473.455z M97.34,454.821H79.457v-87.443    H97.34V454.821z M426.496,431.074l-153.922,55.111c-0.135,0.048-0.318,0.12-0.451,0.174c-0.135,0.055-0.27,0.113-0.403,0.174    c-21.437,9.852-41.814,3.954-49.8,0.849c-30.182-13.581-46.291-22.87-58.061-29.657c-16.364-9.436-24.249-13.984-46.519-15.823    V361.36c9.479-15.536,27.861-31.439,47.679-31.439c33.986,0,48.387,22.105,48.953,22.997c1.221,1.986,3.098,3.483,5.305,4.232    l79.475,26.974c12.693,4.764,19.401,15.634,16.318,26.474c-1.423,5.006-4.711,9.158-9.257,11.691    c-4.507,2.511-9.717,3.132-14.683,1.758l-89.593-28.392c-5.268-1.669-10.886,1.247-12.554,6.512    c-1.669,5.265,1.247,10.885,6.512,12.554l89.749,28.441c0.095,0.03,0.19,0.059,0.286,0.086c3.583,1.019,7.231,1.523,10.857,1.523    c6.638,0,13.203-1.691,19.161-5.011c9.213-5.133,15.875-13.547,18.759-23.692c0.23-0.81,0.434-1.62,0.611-2.43l75.083-20.8    c10.844-3.704,25.079-5.039,31.417,9.558C447.978,419.533,430.928,428.96,426.496,431.074z" fill="#3dc2cf"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M359.06,131.543c-0.13-0.64-0.32-1.27-0.58-1.88c-0.25-0.6-0.55-1.18-0.92-1.72c-0.36-0.55-0.78-1.06-1.24-1.52    c-0.46-0.46-0.97-0.88-1.52-1.24c-0.54-0.36-1.12-0.67-1.72-0.92c-0.61-0.25-1.24-0.45-1.87-0.57c-1.29-0.26-2.62-0.26-3.91,0    c-0.64,0.12-1.27,0.32-1.87,0.57c-0.61,0.25-1.19,0.56-1.73,0.92c-0.55,0.36-1.06,0.78-1.52,1.24c-0.46,0.46-0.88,0.97-1.24,1.52    c-0.36,0.54-0.67,1.12-0.92,1.72c-0.25,0.61-0.45,1.24-0.57,1.88c-0.13,0.64-0.2,1.3-0.2,1.95c0,0.65,0.07,1.31,0.2,1.95    c0.12,0.64,0.32,1.27,0.57,1.87c0.25,0.61,0.56,1.19,0.92,1.73c0.36,0.55,0.78,1.06,1.24,1.52c0.46,0.46,0.97,0.88,1.52,1.24    c0.54,0.36,1.12,0.67,1.73,0.92c0.6,0.25,1.23,0.44,1.87,0.57s1.3,0.2,1.95,0.2c0.65,0,1.31-0.07,1.96-0.2    c0.63-0.13,1.26-0.32,1.87-0.57c0.6-0.25,1.18-0.56,1.72-0.92c0.55-0.36,1.06-0.78,1.52-1.24c0.46-0.46,0.88-0.97,1.24-1.52    c0.37-0.54,0.67-1.12,0.92-1.73c0.26-0.6,0.45-1.23,0.58-1.87c0.13-0.64,0.19-1.3,0.19-1.95    C359.25,132.843,359.19,132.183,359.06,131.543z" fill="#3dc2cf"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M502,33.891h-59.457c-5.523,0-10,4.477-10,10v8.634H404.66c-5.523,0-10,4.477-10,10v2.878    c-16.254-1.419-21.6-4.501-36.527-13.109c-11.48-6.62-28.831-16.625-60.078-30.674c-0.145-0.066-0.291-0.127-0.44-0.185    c-10.171-4.002-36.828-11.876-65.299,1.027l-40.24,14.408L158.157,2.952c-3.905-3.905-10.237-3.905-14.142,0L32.657,114.309    c-3.602,3.603-4.293,9.85,0,14.143l190.287,190.287c3.045,3.046,10.175,3.967,14.143,0l101.665-101.664    c2.643,0.228,5.386,0.351,8.229,0.351c26.126,0,49.236-17.922,62.457-37.456H502c5.523,0,10-4.477,10-10V43.891    C512,38.368,507.523,33.891,502,33.891z M151.085,24.165l22.792,22.792c-6.775,4.19-14.608,6.432-22.792,6.432    c-8.185,0-16.017-2.241-22.792-6.432L151.085,24.165z M76.663,144.173L53.871,121.38l22.792-22.792    c4.19,6.775,6.432,14.608,6.432,22.792C83.095,129.564,80.854,137.397,76.663,144.173z M230.016,297.525l-22.788-22.788    c13.913-8.586,31.661-8.586,45.575,0L230.016,297.525z M267.211,260.331c-22.098-16.03-52.292-16.03-74.39,0L91.07,158.579    c7.809-10.74,12.025-23.641,12.025-37.199c0-13.559-4.215-26.459-12.025-37.199l22.817-22.816    c10.74,7.809,23.64,12.025,37.199,12.025c13.559,0,26.459-4.216,37.199-12.025l21.629,21.629    c-4.667,0.689-9.218,2.227-13.462,4.592c-7.168,3.994-12.792,9.975-16.294,17.211c-11.28,2.089-21.723,7.55-29.915,15.741    c-22.225,22.226-22.225,58.389,0.001,80.615c11.112,11.112,25.709,16.669,40.307,16.669c14.597,0,29.195-5.556,40.308-16.669    c7.23-7.23,12.295-16.116,14.832-25.8l33.764,11.459c-3.801,17.608,0.092,36.132,10.593,50.682L267.211,260.331z M206.413,162.018    c0.088,0.032,0.176,0.064,0.265,0.094l19.996,6.787c-1.51,6.815-4.927,13.081-9.957,18.112c-14.428,14.426-37.904,14.428-52.33,0    c-14.428-14.427-14.428-37.902,0-52.33c3.48-3.482,7.587-6.203,12.062-8.048C178.295,141.995,189.356,155.688,206.413,162.018z     M304.457,223.084c-3.86-6.29-6.044-13.469-6.389-20.796c4.79,3.463,10.644,6.856,17.636,9.549L304.457,223.084z M394.659,165.983    c-9.478,15.538-27.86,31.441-47.678,31.441c-3.708,0-7.183-0.264-10.432-0.734c-0.013-0.002-0.026-0.004-0.039-0.006    c-21.596-3.137-33.213-15.411-37.042-20.271c-0.204-0.3-1.073-1.437-1.202-1.626c-1.165-2.082-3.075-3.756-5.511-4.583    l-79.508-26.985c-12.688-4.762-19.395-15.627-16.321-26.463c0.002-0.007,0.004-0.014,0.006-0.021    c0.003-0.008,0.005-0.017,0.007-0.025c1.429-4.99,4.711-9.129,9.247-11.656c4.506-2.511,9.715-3.134,14.683-1.757l89.593,28.391    c5.266,1.671,10.886-1.247,12.554-6.512c1.668-5.265-1.247-10.885-6.512-12.554l-71.255-22.58l-0.622-0.622    c-0.006-0.006-0.012-0.013-0.019-0.019l-36.89-36.89l31.708-11.354c0.107-0.039,0.239-0.088,0.345-0.131    c0.027-0.011,0.079-0.031,0.105-0.042c0.136-0.055,0.27-0.113,0.403-0.174c21.436-9.852,41.812-3.955,49.799-0.849    c30.183,13.581,46.293,22.87,58.063,29.657c16.364,9.437,24.249,13.984,46.518,15.823V165.983z M432.543,159.968H414.66V72.525    h17.883V159.968z M492,159.968h-39.457V53.891H492V159.968z" fill="#3dc2cf"/>
+                        </g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                        </svg> 
+                        {{ 150 }}
+                    </span>
+                </h2>
+                <div class="clearfix">
+                    <span class="fs-9 datetime">Posted {{dateFormatMddYYYYFilter(item.created_at)}}</span>
+                    <span class="posted-by" ng-if="item.from == 'admin'">{{item.from}}</span>
+                </div>
+            </div>
+            <div class="clearfix">
+
+                <img class="mc-commentsarea--post-picture" ng-show="item.attachment" src="{{ item.attachment }}" alt=""> 
+
+                <p class="mc-commentsarea--post-text" ng-show="profile.readMore"> <!-- ng-tt-no-toggling -->
+                  <span ng-text-truncate="item.comment | multiline" ng-tt-chars-threshold="180"></span>
+                  <!-- <span class="readmore" ng-click="readMore()">.....Read More</span> -->
+                </p>
+
+                  <!-- <p  ng-hide="profile.readMore" class="fs-11 angular-with-newlines" ng-bind-html="item.comment | multiline">
+                    </p> -->
+            </div>
+            <div class="clearfix mc-commentsarea--footer">
+                <span class="mc-commentsarea--icon reply-btn" ng-click="getReplyId($event,item.id)">
+                  <em class="fa fa-reply"></em> {{ item.replies.length }} reply
+                </span>
+                <!-- <span class="mc-commentsarea--icon" ng-click="addLike()"><em class="fa fa-thumbs-up"></em> 1 like</span> -->
+            </div>
+        </div>
+        <!-- comments end -->
+        <!-- reply start -->
+        <div class="mc-commentsarea--reply">
+            <div class="clearfix" ng-repeat="item_reply in item.replies">
+              <div class="mc-commentreplysarea--box" id="{{ 'comment-' + item_reply.id }}" on-hold="onHold(item)">
+                <div class="mc-commentsarea--options">
+                    <img src="../../img/menu-dots.svg" alt="">
+                    <ul>
+                      <li><a ng-click="deletCommentReply(item.id,item_reply)"><em class="fa fa-times-circle-o"></em> Delete</a></li>
+                    </ul>
+                </div>
+                
+                  <div class="clearfix">
+                      <a ng-click="gotoCommentProfile(item.user.id)">
+                          <img class="mc-commentsarea--thumbnail" ng-src="{{item_reply.user.image== null ? './img/default.jpg' : imagePath+item_reply.user.image}}"
+                          alt="">
+                      </a>
+                      <h2 class="heading">
+                          {{item_reply.user.name}}
+                      </h2>
+                      <span class="fs-9 datetime">Posted {{dateFormatMddYYYYFilter(item_reply.created_at)}}</span>
+                      <span class="posted-by" ng-if="item_reply.from == 'admin'">{{item_reply.from}}</span>
+                  </div>
+
+                  <div class="clearfix">
+                     
+                      <img class="mc-commentsarea--post-picture" ng-show="item_reply.attachment" src="{{ item_reply.attachment }}" alt=""> 
+                      <p class="mc-commentsarea--post-text" ng-show="profile.readMore">
+                        <span ng-text-truncate="item_reply.comment | multiline" ng-tt-chars-threshold="180"></span>
+                        <!-- <span class="readmore" ng-click="readMore()">.....Read More</span> -->
+                      </p>
+
+                      <!-- <p  ng-hide="profile.readMore" class="fs-11 angular-with-newlines" ng-bind-html="item_reply.comment | multiline">
+                      </p> -->
+                  </div>
+                  <div class="clearfix mc-commentsarea--footer">
+                      <!-- <span class="mc-commentsarea--icon" ng-click="modalCommentReplyShow()"><em class="fa fa-reply"></em> 2 replies</span> -->
+                      <!-- <span class="mc-commentsarea--icon" ng-click="addLike()"><em class="fa fa-thumbs-up"></em> 1 like</span> -->
+                  </div>
+                
+            </div>
+            </div>
+            <!-- <div class="mc-commentsarea--comments-box">
+                <label class="item-input-wrapper">
+                    <textarea placeholder="What's on your mind?" ng-model="profile.reply" class="form-control"></textarea>
+                </label>
+                <button class="button btn-transparent icon-right ion-android-send default-color" ng-disabled="!profile.reply" ng-click="commentSend(profile.reply)" disabled="disabled">
+                </button>
+            </div> -->
+        </div>          
+        <!-- reply end -->
+      </div>      
+    </div>
+    <!-- comments section end -->
+
+
+  </ion-content>
+  <div class="bar bar-footer bar-footer-rm-b">
+     
+    <div class="wrap">
+        <div class="comments-attachments" ng-show="attachfile != null">
+            <div class="item">
+                <button ng-click="removeAttachFile()" class="btn-delete"><em class="fa fa-times"></em></button>
+              <!-- <img src="./img/organization.svg" alt=""> -->
+              <img src="{{attachfile}}" alt="">
+            </div>
+          </div>
+    
+          <div class="comments-box">
+
+              <div class="item-input-wrapper">
+                  <textarea id="comment_box" ng-keyup="autoExpand($event)" placeholder="What's on your mind?" ng-model="profile.reply" class="form-control"></textarea>
+                  
+                  <div class="comments-box--options">
+                    <ul>
+                      <li>
+                          <em class="fa fa-paperclip" ngf-resize="{quality: .2}" ngf-select="attachmentsFile($files,$invalidFiles)"
+                          ngf-pattern="'image/*,video/*,application/pdf'" ngf-multiple="true"></em>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              <button class="button btn-transparent icon-right ion-android-send default-color" ng-disabled="!profile.reply" ng-click="commentSend(profile.reply)" disabled="disabled">
+              </button>
+          </div>
+    </div>
+  </div>
+
+  <!-- model popup association -->
+  <script id="templates/associations.html" type="text/ng-template">
+    <ion-modal-view class="sm-model associat-modal">
+      <ion-header-bar class="bar bar-header bar-positive forgot-header">
+  
+        <span class="title">Add Association</span>
+        <button class="button button-icon button-clear ion-ios7-close-empty" ng-click="associationmodal.hide()"></button>
+      </ion-header-bar>
+      <ion-content class="padding modal-org-create has-footer">
+  
+        <div class="list">
+          <div class="row">
+            <div class="col text-center cursor-pointer" fancy-select ng-model="asscociate.challanges"
+            multi-select="true" items="challenges" item-label="name" header-text="Select Challanges">
+              <img src="./img/challenges.svg" alt="Challenges">
+              <p class="default-color fs-11 bold">Challenges</p>
+            </div>
+            <div class="col text-center cursor-pointer" fancy-select ng-model="asscociate.organizations"
+            multi-select="true" items="organizations" item-label="name" header-text="Select organizations">
+              <img src="./img/organization.svg" alt="organizations">
+              <p class="default-color fs-11 bold">Organizations</p>
+            </div>
+            <div class="col text-center cursor-pointer" fancy-select ng-model="asscociate.projects"
+            multi-select="true" items="projects" item-label="name" header-text="Select Projects">
+              <img src="./img/projects.svg" alt="Projects">
+              <p class="default-color fs-11 bold">Projects</p>
+            </div>
+          </div>
+        </div>
+  
+      </ion-content>
+      <ion-footer-bar align-title="center">
+        <div class=" width-100">
+          <button class="button width-100 button-positive br-2 button-gradiant" ng-disabled="!(asscociate.challanges.length || asscociate.projects.length || asscociate.organizations.length)" ng-click="addAssociate()">Save Changes</button>
+        </div>
+      </ion-footer-bar>
+    </ion-modal-view>
+    </script>
+  <!-- model popup association -->
+</ion-view>

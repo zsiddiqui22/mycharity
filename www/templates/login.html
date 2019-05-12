@@ -1,0 +1,76 @@
+<ion-view>
+  <ion-content>
+    <div class="container">
+      <div class="logo-image pad-top-30 text-center">
+        <img class="width-80" src="img/mch_logo.png" alt="">
+      </div>
+      <div class="text-center">
+        <p class="gray-color">
+          Creating an account let’s you enjoy
+          the full functionallity of the app.
+        </p>
+        <p class="gray-color bold">We don’t sell your data</p>
+      </div>
+      <form name="myForm" novalidate ng-submit="myForm.$valid && submit()">
+        <div class="list list-inset">
+          <div class="row">
+            <div class="col">
+              <label class="item item-input inputborder-theme">
+                <input type="text" name="email_phone" ng-model="login.email_phone" placeholder="Email" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="item item-input inputborder-theme">
+                <input type="password" name="password" ng-model="login.password" placeholder="Password" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button type="submit" ng-disabled="myForm.$invalid" class="button-big button button-full button-positive br-2 button-gradiant"
+                >Login</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="padding-top-10 text-center">
+        <p class="font-size-10 gray-color">Forgot your login password? <a class="a-login" href="#/forgot">Reset Now</a></p>
+      </div>
+      <div class="padding-top-20">
+        <p class="gray-color text-btwn-line font-size-10"><span>Signup using Social Media</span></p>
+      </div>
+      <div class="text-center">
+        <!-- <ul class="social-link">
+          <li>
+            <i class="ion-social-facebook"></i>
+          </li>
+          <li>
+            <i class="ion-social-googleplus"></i>
+          </li>
+          <li>
+            <i class="ion-social-linkedin"></i>
+          </li>
+          <li>
+            <i class="ion-social-twitter"></i>
+          </li>
+        </ul> -->
+        <div class="row">
+          <button type="button" class="button button-full button-positive br-2 button-gradiant button-big" ng-click="gotoDiscover()">Proceed
+            Without Registeration</button>
+        </div>
+
+        <!-- <i class="ion-social-facebook"></i>
+            <i class="ion-social-googleplus"></i>
+            <i class="ion-social-linkedin"></i>
+            <i class="ion-social-twitter"></i> -->
+      </div>
+      <div class="padding-top-10 text-center">
+        <p class="font-size-10 gray-color">Dont't have an aacount? <a class="a-login" href="#/signup">Signup Now</a></p>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,96 @@
+
+<button class="button button-icon icon show-more-btn z-index-1" ng-click="showDonation(item)">
+  <img src="./img/load_more_icon.svg" >
+</button>
+<!-- model popup donation start -->
+<script id="templates/listShowMore.html" type="text/ng-template">
+  <ion-modal-view class="sm-model show-more">
+    <ion-header-bar class="bar bar-header bar-positive forgot-header">
+      <span class="title "> {{title}}</span>
+      <button class="button button-icon button-clear ion-ios7-close-empty" ng-click="closeModalDonation()"></button>
+    </ion-header-bar>
+
+     <!-- Subheader will display the control to select when we want to leave-->
+     <div class="bar bar-subheader">
+        <div class="list"> 
+            <div class="item item-input-inset"> 
+          <label class="item-input-wrapper"> 
+                <input type="text" placeholder="Search" ng-model="searchText" ng-change="SearchResults(searchText)"> 
+          </label> 
+            <button class="button button-small" ng-click="searchText ='';SearchResults(searchText)"> 
+               Clear 
+            </button> 
+            </div> 
+        </div> 
+    </div>
+
+    <ion-content class="padding content" has-subheader="true">
+     <div  class="spacer"></div>
+      <ion-list >
+        <!-- for organizarion start -->
+          <ion-item class="list card card-rm-boundry" ng-repeat="item in myOrganization | filter:amountConversionTok">
+              <div class="item item-thumbnail-left list-border-hide-l-r-t full-text" ng-click="gotoProfile(item)">
+                  <!-- <a ng-if="type == 'own'" class="item item-thumbnail-left list-border-hide-l-r-t full-text" ui-sref="app.hero-profile({id:item.id})">
+                      <a ng-if="type == 'challenge'" class="item item-thumbnail-left list-border-hide-l-r-t full-text" ui-sref="app.challenge-profile({id:item.id})">
+                          <a ng-if="type == 'organization'" class="item item-thumbnail-left list-border-hide-l-r-t full-text" ui-sref="app.profile({id:item.id})"> -->
+                <img ng-src="{{item.associatable.image== null ? './img/default.jpg' : imagePath +item.associatable.image}}">
+                
+                <div class="col">
+                  <b class="fs-13 default-color">{{item.associatable.name}}</b>
+                </div>
+                <p class="fs-11 grey-color">{{item.associatable.address}}</p>
+                <p class="fs-11 grey-color" ng-if="type == 'user'">{{item.associatable.job}}</p>
+                  <p class="fs-11 grey-color" ng-if="type != 'user'">
+                      Funds Target: <rais>
+                          {{item.associatable.convert_funds_target}} {{item.associatable.currency}}
+                        </rais>
+
+                        Funds raise: <rais ng-if="item.associatable.convert_funds_raised">{{item.associatable.convert_funds_raised}} {{item.associatable.currency}}
+                          </rais>
+                          <rais ng-if="!item.associatable.convert_funds_raised">0 {{item.associatable.currency}}</rais>
+                  </p>
+                <p class="grey-color fs-12 full-text" ng-text-truncate="item.description" ng-tt-chars-threshold="70" ng-tt-more-label="Show"
+                ng-tt-less-label="Hide" ng-click="$event.stopPropagation();"></p>
+                </div>
+              <div class="row">
+                <!-- <div class="col-30">
+                  <button class="button button-positive-revert btn-small fs-9" ng-if="item.supported == true" ng-click="usSupportedType(item,'myOrganization')">
+                    SUPPORTED
+                  </button>
+                  <button class="button button-positive btn-small fs-9" ng-if="item.supported != true" ng-click="supportedType(item, 'myOrganization')">
+                    SUPPORT
+                  </button>
+                 
+                  <donation-button data="{{item}}" type="challenge" display="display()">
+                    </donation-button>
+                </div> -->
+      
+                <div class="col text-right">
+                  <span class="fs-14 grey-color">
+                    <img class="width-15" src="img/supporter.svg" alt="">
+                    <b> {{item.supporters ? item.supporters : 0}}</b>
+      
+                  </span>
+                  &nbsp;
+                  <span class="fs-14 grey-color">
+                    <img class="width-15" src="img/donor.svg" alt="">
+                    <b> {{item.donors ? item.donors : 0}}</b>
+                  </span>
+                  &nbsp;
+                  <span class="fs-14 grey-color">
+                    <img class="width-15" src="img/celebrity.svg" alt="">
+                    <b> {{item.Celebrities ? item.Celebrities : 0}}</b>
+                  </span>
+                </div>
+              </div>
+            </ion-item>
+              <!-- for organizarion end -->
+        </ion-list>
+  
+    <ion-infinite-scroll on-infinite="getById(searchText)"
+    ng-if="(count || dataAvailable)" distance="1%" immediate-check="false"></ion-infinite-scroll>
+         
+    </ion-content>
+  </ion-modal-view>
+  </script>
+<!-- model popup donation end --

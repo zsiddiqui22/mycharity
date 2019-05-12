@@ -1,0 +1,74 @@
+<ion-view>
+  <ion-content>
+    <div class="container">
+      <div class="logo-image pad-top-30 text-center">
+        <img class="width-80" src="img/mch_logo.png" alt="">
+      </div>
+
+      <form name="myForm" novalidate>
+        <div class="list list-inset">
+          <div class="row">
+            <div class="col">
+              <label class="item item-input inputborder-theme">
+                <input type="text" name="fullname" ng-model="signup.fullname" placeholder="Full Name" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="item item-input inputborder-theme">
+                <input type="text" name="email" ng-model="signup.email" placeholder="Email Address" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="item item-input inputborder-theme">
+                <input type="password" name="password" ng-model="signup.password" placeholder="Password" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="item item-input inputborder-theme">
+                <input type="password" name="cpassword" ng-model="signup.cpassword" ng-pattern="signup.password" placeholder="Confirm Password"
+                  required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button type="button" ng-disabled="myForm.$invalid" class="button-big button button-full button-positive br-2 button-gradiant"
+                ng-click="submit()">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="padding-top-40">
+        <p class="gray-color text-btwn-line font-size-10"><span>Signup using Social Media</span></p>
+      </div>
+      <!-- <div class="text-center">
+        <ul class="social-link">
+          <li>
+            <i class="ion-social-facebook"></i>
+          </li>
+          <li>
+            <i class="ion-social-googleplus"></i>
+          </li>
+          <li>
+            <i class="ion-social-linkedin"></i>
+          </li>
+          <li>
+            <i class="ion-social-twitter"></i>
+          </li>
+        </ul>
+
+      </div> -->
+      <div class="padding-top-40 text-center">
+        <p class="font-size-10 gray-color">Dont't have an aacount? <a class="a-login" href="#/login">Login Now</a></p>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>

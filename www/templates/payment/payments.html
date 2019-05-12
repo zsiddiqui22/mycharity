@@ -1,0 +1,135 @@
+<ion-view title="Payment Settings" hide-back-button="true">
+  <ion-nav-bar class="bar-stable color-white">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <!-- <h1 class="title color-white">Payment Settings</h1> -->
+    <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50" ng-click="historyBack()">
+        </button>
+      </span>
+      <!-- <span class="header-title text-center">Payment Settings</span> -->
+      <!-- <span class="header-title"><b class="mch">MCH </b>&nbsp Organization</span> -->
+    </ion-nav-buttons>
+    <!-- <ion-nav-buttons class="c-header" side="right">
+          <button class="button button-icon icon" ng-click="vm.goToScheduleMap()">
+            <img src="./img/search.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/chat-bubble.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/bell.svg">
+          </button>
+        </ion-nav-buttons>  -->
+  </ion-nav-bar>
+  <!-- 
+  <ion-nav-buttons side="center">
+    <span class="left-buttons">
+      <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50" ng-click="historyBack()">
+      </button>
+    </span>
+    <h1 class="title color-white">Payment Settings</h1>
+  </ion-nav-buttons> -->
+
+  <ion-content class="padding modal-org-create gray-bg">
+    <!-- <div class="row">
+      <h4 class="gray-dark-color">Your Existing Cards</h4>
+    </div> -->
+    <div class="orverflowhide">
+      <div class="row scrolling-wrapper-flexbox">
+        <!-- <div class="col-15 padding-horizontal-2">
+          <button class="button button-full br-2 payment-card-type-btn" ng-click="creditcard.btnStripe =!creditcard.btnStripe;creditcard.btnDebitCredit =false;creditcard.btnpaypal =false"
+            ng-class="{'button-positive': creditcard.btnStripe,'button-stable': !creditcard.btnStripe}">
+            Stripe</button>
+        </div> -->
+
+        <!-- <div class="col-15 padding-horizontal-2">
+          <button class="button button-full br-2 payment-card-type-btn"
+          ng-click="creditcard.btnDebitCredit =!creditcard.btnDebitCredit;creditcard.btnStripe =false;creditcard.btnpaypal =false"
+           ng-class="{'button-positive': creditcard.btnDebitCredit,'button-stable': !creditcard.btnDebitCredit}">
+            Debit/Credit</button>
+        </div> -->
+        <!-- <div class="col-15 padding-horizontal-2">
+          <button class="button button-full br-2 payment-card-type-btn"
+          ng-click="creditcard.btnpaypal =!creditcard.btnpaypal;creditcard.btnDebitCredit =false;creditcard.btnStripe =false"
+           ng-class="{'button-positive': creditcard.btnpaypal,'button-stable': !creditcard.btnpaypal}">
+            Paypal</button>
+        </div> -->
+      </div>
+    </div>
+    <div class="row">
+      <h4 class="gray-dark-color">Add New Card</h4>
+    </div>
+    <div class="list" ng-if="creditcard.btnStripe">
+      <form ng-cloak name="creditcard_form" class="form-validation" novalidate ng-submit="submitCreditCard(creditcard, creditcard_form)">
+        <!-- <form stripe-form="stripeCallback" name="checkoutForm"> -->
+        <div class="row responsive-sm">
+            <div class="col">
+                <label class="item item-input">
+                  <input type="text" ng-model="creditcard.name" placeholder="Name">
+                </label>
+              </div>
+
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" ng-model="creditcard.address" placeholder="Address">
+            </label>
+          </div>
+        </div>
+
+        <div class="row responsive-sm">
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" ng-model="creditcard.postcode" placeholder="Post Code" required>
+            </label>
+          </div>
+
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" ng-model="creditcard.city" placeholder="City" required>
+            </label>
+          </div>
+        </div>
+
+        <div class="row responsive-sm">
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" ng-model="creditcard.number" placeholder="9999 9999 9999 9999" payments-format="card"
+                payments-validate="card" required>
+            </label>
+          </div>
+
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" ng-model="creditcard.cvc" placeholder="999" payments-format="cvc" payments-validate="cvc"
+                required>
+            </label>
+          </div>
+        </div>
+        
+        <div class="row responsive-sm">
+          <div class="col">
+            <label class="item item-input">
+
+              <input type="text" name="expiry" ng-model="creditcard.expiry" placeholder="MM / YY" payments-format="expiry"
+                payments-validate="expiry" required>
+            </label>
+          </div>
+        </div>
+        
+       
+
+        <div class="row">
+          <div class="col">
+            <button class="button button-full button-positive br-2 button-gradiant" data-ng-disabled="!(creditcard.name && creditcard.postcode && creditcard.number && creditcard.expiry && creditcard.cvc)"
+              type="submit">Add
+              Card</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </ion-content>
+</ion-view>

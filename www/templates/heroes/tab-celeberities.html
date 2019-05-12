@@ -1,0 +1,92 @@
+<ion-view>
+  <ion-content class="gray-bg" has-bouncing="false" overflow-scroll="true">
+    <div ng-hide="celebrity.length != 0">
+      <p class="grey-color fs-12 centered text-center">
+        No results found.
+      </p>
+    </div>
+
+    <ion-list>
+      <ion-item class="list card card-rm-boundry" ng-repeat="item in celebrity | filter:amountConversionTok"
+        ng-if="item.supportable">
+        <a class="item item-thumbnail-left list-border-hide-l-r-t full-text" ng-click="gotoProfile(item)">
+          <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}">
+          <div class="col">
+            <b class="fs-13 default-color">{{item.supportable.name}}</b>
+            <!-- <span class="fs-13 float-right fs-11 green-color">{{item.role}}</span> -->
+          </div>
+
+          <div class="col text-right padding-0">
+            <div>
+              <span class="fs-13 float-right fs-11 green-color card-chat-cion">
+                <img class="width-15" src="img/chat.svg" alt=""></span>
+              <!-- <span class="fs-13 float-right fs-11 green-color">{{item.supportable.role}}</span> -->
+            </div>
+            <div class="pr-27">
+              <!-- <button class="button button-balanced btn-small fs-9" ng-click="showDonation($event,item)">
+                      DONATE
+                    </button> -->
+              <donation-button data="{{item}}" type="user" display="display()">
+              </donation-button>
+            </div>
+          </div>
+          <p class="fs-11 grey-color">{{item.supportable.address}}</p>
+          <!-- <p class="fs-11 grey-color">
+                    <abbr ng-if="item.donation_rank">
+                      Donation Rank:
+                      <rais>
+                        {{ item.donation_rank}}<sup>{{ item.donation_sup}}</sup>
+                      </rais>
+                    </abbr>
+                  </p> -->
+          <p class="fs-12 grey-color full-text">{{item.supportable.job}}</p>
+        </a>
+
+        <div class="row">
+          <div class="col-30">
+            <button class="button button-positive-revert btn-small fs-9" ng-if="item.supported == true"
+              ng-click="usSupportedType(item,'celebrity')">
+              SUPPORTED
+            </button>
+            <button class="button button-positive btn-small fs-9" ng-if="item.supported != true"
+              ng-click="supportedType(item,'celebrity')">
+              SUPPORT
+            </button>
+
+            <button class="button button-balanced btn-small fs-9">
+              DONATE
+            </button>
+            <button class="button btn-small button-outline button-assertive fs-9">
+              REJECT
+            </button>
+          </div>
+
+          <div class="col text-right">
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/supporter.svg" alt="">
+              <b> {{item.supporters ? item.supporters : 0}}</b>
+
+            </span>
+            &nbsp;
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/donor.svg" alt="">
+              <b> {{item.donors ? item.donors : 0}}</b>
+            </span>
+            &nbsp;
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/celebrity.svg" alt="">
+              <b> {{item.Celebrities ? item.Celebrities : 0}}</b>
+            </span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll on-infinite="getHeroByCelebrity()" ng-if="(!(celebrity.length == count) || dataAvailable)"
+      distance="1%" immediate-check="false">
+    </ion-infinite-scroll>
+
+
+  </ion-content>
+
+</ion-view>

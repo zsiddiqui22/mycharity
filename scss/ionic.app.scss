@@ -1,0 +1,345 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+$iceblue:           #b2deeb;
+$brand-primary:     #387ef5;
+$border-color:      #ddd;
+
+$comment:(
+    bg          :   #EFF6FE,     
+    reply-bg    :   #e8e8e8,
+);
+
+.mc-commentsarea{
+    padding: 6px;
+    margin-bottom: 20px;
+    .list{
+        padding: 4px;
+    }
+    &--box{
+        background-color: map-get($comment, bg);
+    }
+    &--box,.mc-commentreplysarea--box{     
+        border-radius: 6px !important;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        padding: 10px;
+        margin-bottom: 10px;
+        position: relative;
+        max-width: 100%;
+        width: auto;
+        display: table;
+        min-width: 300px;
+        p{
+            color: #000;
+            line-height: 1.4;
+            margin-top: 6px;
+        }
+    }
+    .mc-commentreplysarea--box{
+        background-color: map-get($comment, reply-bg);
+        float: right;
+
+    }
+    .heading{
+        text-transform: capitalize;
+        font-size: 12px;
+        font-weight: bold;
+        margin-top: 5px;
+        max-width: calc(100% - 30px);
+        margin-bottom: 2px;
+    }
+    .datetime{
+        color: #000;
+        display: inline-block;
+    }
+    .posted-by{        
+        margin: 3px;
+        float: right;
+        color: #000;
+        font-size: 10px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    &--options{
+        position: absolute;
+        top: 5px;
+        right: 0;
+        svg,img {
+            width: 40px;
+            height: 30px;
+        }
+        ul{
+            width: 120px;
+            position: absolute;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            top: 25px;
+            right: 10px;
+            background: #fff;
+            font-size: 12px;
+            border-radius: 2px;
+            display: none;
+            >li{
+                display: block;
+                a{
+                    padding: 5px;
+                    display: block;
+                    text-decoration: none;
+                    color: #6f6e6e;
+                }
+            }
+        }
+        &:hover{
+            ul{
+                display: block;
+            }
+        }
+    }
+    &--thumbnail{
+        border-radius: 50%;
+        width: 45px!important;
+        height: 45px!important;
+        float: left;
+        margin-right: 10px;
+    }
+    &--username{
+
+    }
+    &--icon{
+        font-weight: normal;
+        margin-left: 5px;
+        display: inline-block;
+        svg,img {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 2px;
+            path {
+                fill: #000;
+            }
+        } 
+    }
+    &--reply{
+        margin-left: 20px;
+        @extend .clearfix;
+        display: flex;
+        flex-flow: column;
+        .mc-commentsarea--box{
+            background-color: map-get($comment, reply-bg);
+        }
+        .mc-commentsarea--thumbnail{
+            width: 30px!important;
+            height: 30px!important;
+        }
+    }
+    &--footer{
+        text-align: right;
+        .mc-commentsarea--icon{
+            font-size: 11px;
+            em{
+                font-size: 16px;
+                margin: 5px;
+            }
+        }
+    }
+    &--post-picture{
+        max-width: 100%;
+        margin: 10px 0;
+        border-radius: 3px;
+        width: 400px;
+    }
+    
+}
+
+.comments-box{
+    display: flex;
+    display: -webkit-flex;
+    width: 100%;
+    .item-input-wrapper{
+        //height: 34px;
+        align-items: flex-end;
+    }
+    textarea {
+        padding: 4px;
+        height: 32px;
+        background: transparent;
+        line-height: 1.5;
+        width: 100%;
+        resize: none;
+        min-height: 34px;
+    }
+    .item-input-wrapper~.button{
+        margin: 0!important;
+        min-height: 35px;
+        height: 35px;
+    }
+    .form-control{
+        
+    }
+    .button{
+        &::before{
+            margin-top: -3px;
+        }
+    }
+    &--options{
+        ul{
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            li{
+                position: relative;
+                overflow: hidden;
+                padding: 5px;
+                display: inline-block;
+                a{
+                    padding: 5px 10px;
+                }
+                input[type="file"]{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 0;
+                    z-index: 2;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+.comments-attachments{
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+    .btn-delete{
+        position: absolute;
+        top: -1px;
+        right: 5px;
+        background: none;
+        border: none
+    }
+    .item{
+        border: 1px solid $border-color;
+        padding: 5px;
+        border-radius: 5px;
+        width: 22vw;
+        height: 22vw;
+        display: inline-block;
+        box-sizing: content-box;
+        position: relative;
+        img{
+            width: 22vw;
+            height: 22vw;
+        }
+    }
+    img{
+        max-width: 100%;
+    }
+}
+
+.commentreply-modal{
+    .comments-box textarea{
+        height: 150px;
+    }
+    .comments-box .item-input-wrapper {
+        height: auto;
+        align-items: flex-end;
+    }
+    .comments-box{
+        align-items: flex-end;
+    }
+    .scroll {
+        display: flex;
+        align-items: flex-start;
+        height: 100%;
+        flex-wrap: wrap;
+    }
+    .bar-footer{
+        flex-wrap: wrap;
+        height: auto;
+        .comments-box--options {
+            width: 100%;
+            flex: 100%;
+        }
+    }
+    .has-footer {
+        bottom: 70px;
+    }
+    .item-input-wrapper{
+        background-color: transparent;
+    }
+    .comments-box--options ul li{
+        min-width: 35px;
+        height: 35px;
+        color: $brand-primary;
+        text-align: center;
+    }
+    .comments-attachments{
+        text-align: center;
+    }
+}
+
+.has-comments.has-footer {
+    bottom: 132px;
+}
+
+.bar-footer {
+    flex-wrap: wrap;
+    .wrap{
+        position: relative;
+        width: 100%;
+    }
+    .comments-attachments{
+        position: absolute;
+        top: -85px;
+        left: -5px;
+        padding: 10px 15px 2px;
+        background-color: #fff;
+    }
+    .comments-attachments .item{
+        width: 50px;
+        height: 50px;
+        img{
+            width: 50px;
+            height: 50px;
+        }
+    }
+    .comments-attachments .btn-delete {
+        top: -6px;
+        right: -3px;
+    }
+}
+
+
+@media (min-width:787px){
+    .mc-commentsarea--box {
+        img{
+            max-width: 550px;
+        }
+    }
+}

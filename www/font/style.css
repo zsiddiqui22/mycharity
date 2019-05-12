@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "SourceSansPro-Light"; 
+    src:url("SourceSansPro-Light.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SourceSansPro-LightIt"; 
+    src:url("SourceSansPro-LightIt.woff") format("woff");
+}
+
+ @font-face {
+    font-family: "SourceSansPro-Regular"; 
+    src:url("SourceSansPro-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "SourceSansPro-Semibold"; 
+    src:url("SourceSansPro-Semibold.woff") format("woff");
+}

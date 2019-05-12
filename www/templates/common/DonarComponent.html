@@ -1,0 +1,42 @@
+<!-- model popup donation start -->
+
+<script id="templates/donar.html" type="text/ng-template">
+<ion-modal-view class="sm-model donate-now bottom-fix">
+  <ion-header-bar class="bar bar-header bar-positive forgot-header">
+    <span class="title "> Donor</span>
+    <button class="button button-icon button-clear ion-ios7-close-empty" ng-click="closeModal()"></button>
+  </ion-header-bar>
+  <ion-content class="padding modal-org-create">
+
+    <div class="doantion-popup-scroll">
+      <div >
+        <div class="list card card-rm-boundry" ng-repeat="obj in objData | orderBy:'-amount'">
+
+          <div class="item item-avatar" >
+              <img ng-src="{{obj.user.image== null ? './img/default.jpg' : attachPath+obj.user.image}}" alt="">
+             <div class="row padding-0">
+               <div class="col">
+                <h2>{{obj.user.name}}</h2>
+               </div>
+               <div class="col text-right">
+                <div>{{obj.amount}} {{obj.currency}}</div>
+               </div>
+             </div>
+          
+            <p>{{obj.user.address}}</p>
+          </div>
+
+          <!-- <div class="item item-icon-left assertive" >
+            
+            <div>{{obj.amount}} {{obj.currency}}</div>
+          </div> -->
+
+        </div>
+      </div>
+
+    </div>
+  </ion-content>
+</ion-modal-view>
+</script>
+
+<!-- model popup donation end -->

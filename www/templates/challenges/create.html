@@ -1,0 +1,196 @@
+<ion-view>
+  <!-- custom header start -->
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+
+    <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50" ng-click="goBack()">
+        </button>
+      </span>
+      <span class="header-title"><b class="mch">{{title}} </b>&nbsp;Challenge</span>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <!-- custom header end -->
+
+  <ion-content class="padding modal-org-create has-subheader">
+    <div class="row">
+      <div class="col text-center">
+        <div class="logoImg">
+          <img class="loaderimg" ng-src="{{create.loaderImg}}" ng-if="create.loaderImg">
+
+          <img ng-if="!create.loaderImg" ng-src="{{create.img_path}}" alt="arrow up" ngf-resize="{quality: .2}"
+            ngf-select="upload($files,  $invalidFiles)" ngf-multiple="true" ngf-pattern="'image/*'">
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <p class="grey-color fs-13 bold">Upload Challenge Icon</p>
+      </div>
+    </div>
+
+    <div class="list">
+    <form name="form" novalidate ng-class="{'submitted': submitted}" ng-submit="submit(form)">     
+      <div class="row">
+        <div class="col">
+          <label class="item item-input" ng-class="{'invalid-input': form.orgName.$invalid && submitted}">
+            <input type="text" name="orgName" ng-model="create.orgName" placeholder="Challenge Name" required>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="item item-input">
+            <textarea ng-model="create.orgDesc" placeholder="Challenge Description"
+            rows="4" cols="50"></textarea>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="item item-input">
+            <input type="text" ng-model="create.orgAddress" placeholder="Challenge Location" ng-readonly="!(create.latitude && create.longitude)">
+            <i class="icon ion-navigate placeholder-icon input-icon-right" style="position: absolute;right: 0;"
+              ng-click="modalOpen();"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" ng-if="selectorhide">
+          <div class="col">
+            <div class="item item-select item-input item-input-cus" fancy-select ng-model="create.organizatons"
+              multi-select="true" items="organizatons" item-label="name" header-text="Select organization">
+              <p>
+                {{parseMulti(create.organizatons) || 'Select Organizations'}}
+              </p>
+            </div>
+          </div>
+      </div>
+
+        <div class="row" ng-if="selectorhide">
+            <div class="col">
+              <div class="item item-select item-input item-input-cus" fancy-select ng-model="create.projects"
+                multi-select="true" items="projects" item-label="name" header-text="Select Projects">
+                <p>
+                  {{parseMulti(create.projects) || 'Select Projects'}}
+                </p>
+              </div>
+            </div>
+        </div>
+  
+      <div class="row" ng-if="selectorhide">
+          <div class="col">
+            <div class="item item-select item-input item-input-cus" fancy-select ng-model="create.heros"
+              multi-select="true" items="heros" item-label="name" header-text="Select heros">
+              <p>
+                {{parseMulti(create.heros) || 'Select heros'}}
+              </p>
+            </div>
+          </div>
+      </div>
+
+      <div class="row" >
+        <div class="col">
+          <label class="item item-input item-select">
+            <div class="input-label light-color">
+              Currency
+            </div>
+            <select class="light-color" ng-model="create.currency" ng-options="obj for obj in currency track by obj">
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="item item-input">
+            <input type="number" ng-model="create.funds_target" placeholder="Funds Target">
+          </label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <label class="item item-input" ng-click="openDatePicker('startdate');">
+            <i class="icon ion-ios7-calendar-outline placeholder-icon input-icon-left"></i>
+            <input type="text" ng-model="create.startdate" placeholder="Start Date" readonly>
+          </label>
+        </div>
+        <div class="col">
+          <label class="item item-input" ng-click="openDatePicker('enddate');">
+            <i class="icon ion-ios7-calendar-outline placeholder-icon input-icon-left"></i>
+            <input type="text" ng-model="create.enddate" placeholder="End Date" readonly>
+          </label>
+        </div>
+      </div>
+    
+        <div class="row">
+            <div class="col">
+              <label class="item item-input" ng-click="openTimePicker('starttime')">
+                <i class="icon ion-ios7-time-outline placeholder-icon input-icon-left"></i>
+                <input type="text" ng-model="create.starttime" placeholder="Start Time" readonly>
+              </label>
+            </div>
+            <div class="col">
+              <label class="item item-input" ng-click="openTimePicker('endtime')">
+                <i class="icon ion-ios7-time-outline placeholder-icon input-icon-left"></i>
+                <input type="text" ng-model="create.endtime" placeholder="End Time" readonly>
+              </label>
+            </div>
+          </div>
+      <attachment ng-model="create.attachments" attachments="create.attachments" show-add-attachment="true"></attachment>
+      
+      <div class="row">
+        <div class="col">
+            <button type="submit" ng-click="submitted= true;" class="button button-full button-positive br-2 button-gradiant">{{btnText}}</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>
+
+
+<!-- model popup create organization start -->
+<script id="templates/googlemap.html" type="text/ng-template">
+  <ion-modal-view class="full-modal">
+
+    <!-- <ion-header-bar class="bar">
+        <div class="list list-inset" style="position: absolute;width: 100%;margin: 0;">
+            <div class="item item-input" style="padding: 0px 16px 0px 16px;">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input id="pac-input" type="text" placeholder="Search">
+              <i ng-click="currentLocation();" class="icon ion-android-locate placeholder-icon"></i>
+            </div>
+          </div>
+    </ion-header-bar> -->
+
+  <ion-content class="padding modal-org-create" has-bouncing="false">
+
+    <div class="list list-inset" style="position: absolute;width: 100%;margin: 0;">
+      <div class="item item-input" style="padding: 0px 16px 0px 16px;">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input id="pac-input-challenge" type="text" placeholder="Search" data-tap-disabled="true" ng-click="disableTap()">
+        <i ng-click="currentLocation();" class="icon ion-android-locate placeholder-icon"></i>
+      </div>
+    </div>
+
+    <div id="challenge-map" class="map-full"></div>
+
+  </ion-content>
+
+  <ion-footer-bar class="bar-royal">
+      <div class="title">
+          <button ng-click="modal.hide()" style="width: 50%;text-align: left;" class="button icon ion-ios7-close-empty button-clear width-100 top-6 icon-bigger"></button>
+          <button style="width: 50%;text-align: right;" ng-click="modal.hide()" class="button icon ion-ios7-checkmark-empty button-clear width-100 top-6 icon-bigger"></button>
+      </div>
+    </ion-footer-bar>
+
+</ion-modal-view>
+</script>
+<!-- model popup create organization end -->

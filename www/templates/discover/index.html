@@ -1,0 +1,225 @@
+<ion-view hide-back-button="true" hide-nav-bar="isNavVisible">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+
+    <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-navicon display-block" menu-toggle="left">
+        </button>
+      </span>
+      <span class="header-title"><b class="mch">MCH </b>&nbsp Discover</span>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons class="c-header" side="right">
+      <button class="button button-icon icon" ng-click="showSearch()">
+        <img src="./img/search.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+        <img src="./img/chat-bubble.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="NOTIFICATIONMODAL()">
+        <img src="./img/bell.svg">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+
+  <div class="bar bar-header item-input-inset z-index-minus1" ng-if="isNavVisible">
+    <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50 color-white"
+      ng-click="showSearch();">
+    </button>
+    <div class="item-input-wrapper item-input-wrapper-custom-border">
+      <input type="search" id="disconver-input" ng-model="search" ng-enter="getSeacrh(true,true,true)"
+        placeholder="Search Heroes, Challenges, Projects..." auto-focus="{{autoFocusSearchInput}}">
+      <i class="icon ion-ios-search placeholder-icon font-size-20" ng-click="getSeacrh(true,true,true)"></i>
+    </div>
+  </div>
+
+
+  <!-- sub header start -->
+  <div class="bar bar-subheader custom-header">
+    <div class="row row-center">
+      <a class="col text-center decorate-none" ui-sref="app.discover" ng-click="toastClose()">
+        <div class="button button-icon icon">
+          <img src="./img/home_active.svg">
+          <p>Home</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.organization.suggested" ng-click="toastClose()">
+        <div class="button button-icon icon">
+          <img src="./img/organization.svg">
+          <p>Organizations</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.project.suggested" ng-click="toastClose()">
+        <div class="button button-icon icon">
+          <img src="./img/projects.svg">
+          <p>Projects</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.challenges.suggested" ng-click="toastClose()">
+        <div class="button button-icon icon">
+          <img src="./img/challenges.svg">
+          <p>Challenges</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.heroes.past" ng-click="toastClose()">
+        <div class="button button-icon icon">
+          <img src="./img/heroes.svg">
+          <p>Heroes</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="bar bar-subheader subheader-2">
+    <div class="row row-center bg-color-white discover-top-sticky">
+      <label for="Filter by" class="black fs-13">Filter by:</label>
+      <a class="col text-center">
+        <div class=" bg-color-white fs-13" ng-click="getMapFilter(discover.hero=!discover.hero)"
+          ng-class="{'default-color': discover.hero,'gray-color': !discover.hero}">
+          Heroes
+        </div>
+      </a>
+      <a class="col text-center">
+        <div class=" bg-color-white fs-13" ng-click="getMapFilter(discover.orginization=!discover.orginization)"
+          ng-class="{'org-color': discover.orginization,'gray-color': !discover.orginization}">
+          Organizations
+        </div>
+      </a>
+      <a class="col text-center">
+        <div class=" bg-color-white fs-13" ng-click="getMapFilter(discover.project=!discover.project)"
+          ng-class="{'pro-color': discover.project,'gray-color': !discover.project}">
+          Projects
+        </div>
+      </a>
+      <a class="col text-center">
+        <div class=" bg-color-white fs-13" ng-click="getMapFilter(discover.challenge=!discover.challenge)"
+          ng-class="{'chal-color': discover.challenge,'gray-color': !discover.challenge}">
+          Challenges
+        </div>
+      </a>
+    </div>
+
+  </div>
+  <!-- sub header end  -->
+
+
+
+  <ion-content class="has-subheader" has-bouncing="false" overflow-scroll="true">
+
+    <!-- google map start -->
+    <div class="row" style="min-height: 100%">
+      <div ng-show="isMap" id="discover-map" class="map-full"></div>
+
+      <ion-list ng-show="!isMap" class="width-100 mt-50">
+        <!-- no result found start  -->
+        <div ng-if="allData.length == 0">
+          <p class="grey-color fs-12 centered text-center">
+            No results found. Please expand your search criteria
+          </p>
+        </div>
+        <!-- no result found end  -->
+
+        <!-- item 1 start -->
+        <ion-item class="list card card-rm-boundry" ng-repeat="item in listData | filter:amountConversionTok">
+          <a class="item item-thumbnail-left list-border-hide-l-r-t full-text" ng-click="gotoProfile(item)">
+            <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}">
+            <div class="col">
+              <b class="fs-13"
+                ng-class="{'org-color': item.type=='orginization','default-color': item.type=='hero','pro-color': item.type=='project','chal-color': item.type=='challenge'}">
+                {{item.name}}</b>
+              <span class="fs-13 float-right fs-11 green-color">{{item.role}}</span>
+            </div>
+
+            <p class="fs-12 grey-color full-text">{{item.address}}</p>
+            <p class="fs-12 grey-color" ng-if="item.type=='hero'">{{item.job}}</p>
+
+            <p class="fs-11 grey-color" ng-if="item.type!='hero'">
+              Funds Target: <rais>
+                {{item.convert_funds_target}} {{item.currency}}
+              </rais>
+              Funds raise: <rais ng-if="item.convert_funds_raised">{{item.convert_funds_raised}} {{item.currency}}
+              </rais>
+              <rais ng-if="!item.convert_funds_raised">0 {{item.currency}}</rais>
+            </p>
+
+            <p class="grey-color fs-12 full-text" ng-text-truncate="item.description" ng-tt-chars-threshold="70"
+              ng-tt-more-label="Show" ng-tt-less-label="Hide" ng-click="$event.stopPropagation();"></p>
+
+          </a>
+          <div class="row">
+            <div class="col-30">
+              <button class="button button-positive-revert btn-small fs-9" ng-if="item.supported == true"
+                ng-click="usSupportedType(item)">
+                SUPPORTED
+              </button>
+              <button class="button button-positive btn-small fs-9" ng-if="item.supported != true"
+                ng-click="supportedType(item)">
+                SUPPORT
+              </button>
+              <!-- for organization start -->
+              <donation-button ng-if="item.type == 'orginization'" data="{{item}}" type="organization"
+                display="display()">
+              </donation-button>
+              <!-- for organization ended -->
+
+              <!-- for challenge start -->
+              <donation-button ng-if="item.type == 'challenge'" data="{{item}}" type="challenge" display="display()">
+              </donation-button>
+              <!-- for challenge ended -->
+
+              <!-- for project start -->
+              <donation-button ng-if="item.type == 'project'" data="{{item}}" type="project" display="display()">
+              </donation-button>
+              <!-- for project ended -->
+
+              <!-- for hero start -->
+              <donation-button ng-if="item.type == 'hero'" data="{{item}}" type="user" display="display()">
+              </donation-button>
+              <!-- for hero start -->
+
+            </div>
+
+            <div class="col text-right">
+              <span class="fs-14 grey-color">
+                <img class="width-15" src="img/supporter.svg" alt="">
+                <b> {{item.supporters ? item.supporters : 0}}</b>
+
+              </span>
+              &nbsp;
+              <span class="fs-14 grey-color">
+                <img class="width-15" src="img/donor.svg" alt="">
+                <b> {{item.donors ? item.donors : 0}}</b>
+              </span>
+              &nbsp;
+              <span class="fs-14 grey-color">
+                <img class="width-15" src="img/celebrity.svg" alt="">
+                <b> {{item.Celebrities ? item.Celebrities : 0}}</b>
+              </span>
+            </div>
+          </div>
+        </ion-item>
+        <!-- item 1 end -->
+      </ion-list>
+
+    </div>
+
+    <ion-infinite-scroll on-infinite="onScroll()"
+    ng-if="(count || dataAvailable)" distance="1%" immediate-check="false"></ion-infinite-scroll>
+    <!-- google map end -->
+  </ion-content>
+
+  <ion-footer-bar class="bar-royal">
+    <div class="title">
+      <button ng-show="isMap" ng-click="toogleContent(false)" class="button button-clear width-100 top-6">View List and
+        Donate</button>
+      <button ng-show="!isMap" ng-click="toogleContent(true)" class="button button-clear width-100 top-6">Change Map
+        Area</button>
+    </div>
+
+  </ion-footer-bar>
+
+</ion-view>

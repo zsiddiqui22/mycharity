@@ -1,0 +1,116 @@
+
+<ion-view>
+     <!-- main header start -->
+     <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    
+        <ion-nav-buttons side="left">
+          <span class="left-buttons">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+          </span>
+          <span class="header-title"><b class="mch">MCH </b>&nbsp Heroes</span>
+        </ion-nav-buttons> 
+        <ion-nav-buttons class="c-header" side="right">
+          <button class="button button-icon icon" ng-click="gotoMapsearch('true')">
+            <img src="./img/search.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/chat-bubble.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="NOTIFICATIONMODAL()">
+            <img src="./img/bell.svg">
+          </button>
+        </ion-nav-buttons> 
+      </ion-nav-bar>
+        <!-- main header end -->
+      <!-- <ion-nav-buttons side="left">
+          <span class="left-buttons">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+          </span>
+          <span class="header-title"><b class="mch">MCH </b>&nbsp Discover</span>
+        </ion-nav-buttons> -->
+      
+        <!-- <ion-nav-buttons class="c-header" side="right">
+          <button class="button button-icon icon" ng-click="vm.goToScheduleMap()">
+            <img src="./img/search.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/chat-bubble.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/bell.svg">
+          </button>
+        </ion-nav-buttons> -->
+        <!-- main header end -->
+
+  <!-- sub header start -->
+  <div class="bar bar-subheader custom-header">
+    
+      <div class="row row-center">
+          <a class="col text-center decorate-none" ui-sref="app.discover">
+            <div class="button button-icon icon" >
+              <img src="./img/home.svg">
+              <p>Home</p>
+            </div>
+          </a>
+          <a class="col text-center decorate-none" ui-sref="app.organization.suggested">
+            <div class="button button-icon icon" >
+              <img src="./img/organization.svg">
+              <p>Organizations</p>
+            </div>
+          </a>
+          <a class="col text-center decorate-none" ui-sref="app.project.suggested">
+            <div class="button button-icon icon">
+              <img src="./img/projects.svg">
+              <p>Projects</p>
+            </div>
+          </a>
+          <a class="col text-center decorate-none" ui-sref="app.challenges.suggested">
+            <div class="button button-icon icon" >
+              <img src="./img/challenges.svg">
+              <p>Challenges</p>
+            </div>
+          </a>
+          <a class="col text-center decorate-none" ui-sref="app.heroes.past">
+            <div class="button button-icon icon">
+              <img src="./img/heroes_active.svg">
+              <p>Heroes</p>
+            </div>
+          </a>
+        </div>
+
+  </div>
+  <!-- sub header end -->
+   <!-- tab start -->
+   <ion-tabs class="tabs-icon-top tabs-color-active-positive sec-tab">
+
+    <ion-tab title="Heroes" href="#/app/heroes/heroes">
+      <ion-nav-view class="tab-container" name="tab-heroes-heroes">
+
+      </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Celebrities" href="#/app/heroes/celeberities">
+      <ion-nav-view class="tab-container" name="tab-heroes-celeberities">
+
+      </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Supporters" href="#/app/heroes/supporters">
+      <ion-nav-view class="tab-container" name="tab-heroes-supporters">
+
+      </ion-nav-view>
+    </ion-tab>
+
+  </ion-tabs>
+  <!-- tab end -->
+
+  <ion-content>
+ 
+
+    <!-- <a class="float-btn button button-icon icon ion-settings"></a> -->
+  </ion-content>
+</ion-view>

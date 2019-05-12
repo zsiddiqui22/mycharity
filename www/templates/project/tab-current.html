@@ -1,0 +1,161 @@
+<ion-view>
+  <!-- 
+  <ion-nav-buttons side="left">
+    <span class="left-buttons">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+      </button>
+    </span>
+    <span class="header-title"><b class="mch">MCH </b>&nbsp Projects</span>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons class="c-header" side="right">
+    <button class="button button-icon icon" ng-click="vm.goToScheduleMap()">
+      <img src="./img/search.svg">
+    </button>
+    <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+      <img src="./img/chat-bubble.svg">
+    </button>
+    <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+      <img src="./img/bell.svg">
+    </button>
+  </ion-nav-buttons> -->
+  <!-- main header end -->
+  <ion-content class="gray-bg">
+    <!-- internal tab start -->
+    <div class="row padding">
+      <div class="button-bar">
+        <a class="button button-outline button-positive subtab-btn fs-13" ng-click="issupported = true" ng-class="issupported? 'btn-activated' : ''">Supported</a>
+        <a class="button button-outline button-positive subtab-btn fs-13" ng-click="issupported = false" ng-class="issupported? '' : 'btn-activated'">My
+          Projects
+        </a>
+      </div>
+    </div>
+    <!-- internal tab end -->
+
+    <!-- if issupported true  start-->
+    <div ng-if="issupported">
+      <!-- item 1 start -->
+      <ion-list>
+
+      </ion-list>
+      <ion-item class="list card card-rm-boundry" ng-repeat="item in supported | filter:amountConversionTok">
+        <a class="item item-thumbnail-left list-border-hide-l-r-t full-text" ui-sref="app.project-profile({id:item.id})">
+          <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}">
+          <div class="col">
+            <b class="fs-13 default-color">{{item.name}}</b>
+            <span class="fs-13 float-right fs-11 green-color">{{item.role}}</span>
+          </div>
+
+          <!-- <p class="fs-11 grey-color">{{item.org_associates[0].orginization.name == undefined ? "does'nt belong to any
+            organization" : item.org_associates[0].orginization.name}}</p> -->
+          <p class="fs-11 grey-color">
+            Funds Target: <rais>
+              {{item.convert_funds_target}} {{item.currency}}
+            </rais>
+            Funds raise: <rais ng-if="item.convert_funds_raised">{{item.convert_funds_raised}} {{item.currency}}</rais>
+            <rais ng-if="!item.convert_funds_raised">0 {{item.currency}}</rais>
+          </p>
+          <p class="grey-color fs-12 full-text" ng-text-truncate="item.description" ng-tt-chars-threshold="70"
+            ng-tt-more-label="Show" ng-tt-less-label="Hide" ng-click="$event.stopPropagation();"></p>
+        </a>
+        <div class="row">
+          <div class="col-30">
+            <button class="button button-positive-revert btn-small fs-9" ng-if="item.supported == true" ng-click="usSupportedType(item,'supported')">
+              SUPPORTED
+            </button>
+            <button class="button button-positive btn-small fs-9" ng-if="item.supported != true" ng-click="supportedType(item,'supported')">
+              SUPPORT
+            </button>
+            <!-- <button class="button button-balanced btn-small fs-9" ng-click="showDonation(item)">
+              DONATE
+            </button> -->
+            <donation-button data="{{item}}" type="project" display="display()">
+            </donation-button>
+          </div>
+
+          <div class="col text-right">
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/supporter.svg" alt="">
+              <b> {{item.supporters ? item.supporters : 0}}</b>
+
+            </span>
+            &nbsp;
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/donor.svg" alt="">
+              <b> {{item.donors ? item.donors : 0}}</b>
+            </span>
+            &nbsp;
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/celebrity.svg" alt="">
+              <b> {{item.Celebrities ? item.Celebrities : 0}}</b>
+            </span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-infinite-scroll on-infinite="getProjectBySupported()"
+      ng-if="(!(supported.length == count_supported) || dataAvailable_supported)" distance="1%" immediate-check="false"></ion-infinite-scroll>
+    </div>
+    <!-- if issupported true  end-->
+    <!-- if issupported false  start-->
+    <div ng-if="!issupported">
+        <ion-list>
+      <ion-item  class="list card card-rm-boundry" ng-repeat="item in myOrganization | filter:amountConversionTok">
+        <a class="item item-thumbnail-left list-border-hide-l-r-t full-text" ui-sref="app.project-profile({id:item.id})">
+          <img ng-src="{{item.image== null ? './img/default.jpg' : imagePath+item.image}}">
+          <div class="col">
+            <b class="fs-13 default-color">{{item.name}}</b>
+            <span class="fs-13 float-right fs-11 green-color">{{item.role}}</span>
+          </div>
+
+          <p class="fs-11 grey-color">
+            Funds Target: <rais>
+              {{item.convert_funds_target}} {{item.currency}}
+            </rais>
+            Funds raise: <rais ng-if="item.convert_funds_raised">{{item.convert_funds_raised}} {{item.currency}}</rais>
+            <rais ng-if="!item.convert_funds_raised">0 {{item.currency}}</rais>
+          </p>
+          <p class="grey-color fs-12 full-text" ng-text-truncate="item.description" ng-tt-chars-threshold="70"
+            ng-tt-more-label="Show" ng-tt-less-label="Hide" ng-click="$event.stopPropagation();"></p>
+        </a>
+        <div class="row">
+          <div class="col-30">
+            <button class="button button-positive-revert btn-small fs-9" ng-if="item.supported == true" ng-click="usSupportedType(item,'myOrganization')">
+              SUPPORTED
+            </button>
+            <button class="button button-positive btn-small fs-9" ng-if="item.supported != true" ng-click="supportedType(item, 'myOrganization')">
+              SUPPORT
+            </button>
+            <!-- <button class="button button-balanced btn-small fs-9" ng-click="showDonation(item)">
+              DONATE
+            </button> -->
+            <donation-button data="{{item}}" type="project" display="display()">
+            </donation-button>
+          </div>
+
+          <div class="col text-right">
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/supporter.svg" alt="">
+              <b> {{item.supporters ? item.supporters : 0}}</b>
+
+            </span>
+            &nbsp;
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/donor.svg" alt="">
+              <b> {{item.donors ? item.donors : 0}}</b>
+            </span>
+            &nbsp;
+            <span class="fs-14 grey-color">
+              <img class="width-15" src="img/celebrity.svg" alt="">
+              <b> {{item.Celebrities ? item.Celebrities : 0}}</b>
+            </span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-list>
+      <ion-infinite-scroll on-infinite="getProjectByOrg()"
+      ng-if="(!(myOrganization.length == count_myproject) || dataAvailable_myproject)" distance="1%" immediate-check="false"></ion-infinite-scroll>
+    </div>
+    <!-- if issupported false  end-->
+  </ion-content>
+
+</ion-view>

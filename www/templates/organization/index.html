@@ -1,0 +1,259 @@
+<ion-view hide-back-button="true">
+  <ion-nav-bar class="bar-stable">
+    <!-- <ion-nav-back-button>
+    </ion-nav-back-button> -->
+
+    <ion-nav-buttons side="left">
+      <span class="left-buttons">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </span>
+      <span class="header-title"><b class="mch">MCH </b>&nbsp Organization</span>
+    </ion-nav-buttons> 
+    <ion-nav-buttons class="c-header" side="right">
+      <button class="button button-icon icon"  ng-click="gotoMapsearch('true')">
+        <img src="./img/search.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+        <img src="./img/chat-bubble.svg">
+      </button>
+      <button class="button button-icon icon" ng-click="NOTIFICATIONMODAL()">
+        <img src="./img/bell.svg">
+      </button>
+    </ion-nav-buttons> 
+  </ion-nav-bar>
+  
+    <!-- <ion-header-bar title="organization" class="bar bar-header bar-positive">
+        <ion-nav-buttons side="left">
+            <span class="left-buttons">
+              <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+              </button>
+            </span>
+            <span class="header-title"><b class="mch">MCH </b>&nbsp Organization</span>
+          </ion-nav-buttons> 
+
+          <ion-nav-buttons class="c-header" side="right">
+              <button class="button button-icon icon" ng-click="vm.goToScheduleMap()">
+                <img src="./img/search.svg">
+              </button>
+              <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+                <img src="./img/chat-bubble.svg">
+              </button>
+              <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+                <img src="./img/bell.svg">
+              </button>
+            </ion-nav-buttons> 
+      </ion-header-bar> -->
+
+  <!-- <ion-nav-buttons side="left">
+          <span class="left-buttons">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+          </span>
+          <span class="header-title"><b class="mch">MCH </b>&nbsp Organization</span>
+        </ion-nav-buttons> -->
+
+  <!-- <ion-nav-buttons class="c-header" side="right">
+          <button class="button button-icon icon" ng-click="vm.goToScheduleMap()">
+            <img src="./img/search.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/chat-bubble.svg">
+          </button>
+          <button class="button button-icon icon" ng-click="vm.scheduleMeeting()">
+            <img src="./img/bell.svg">
+          </button>
+        </ion-nav-buttons> -->
+  <!-- main header end -->
+
+  <!-- sub header start -->
+  <div class="bar bar-subheader has-subheader custom-header" >
+
+    <div class="row row-center">
+      <a class="col text-center decorate-none" ui-sref="app.discover">
+        <div class="button button-icon icon">
+          <img src="./img/home.svg">
+          <p>Home</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.organization.suggested">
+        <div class="button button-icon icon">
+          <img src="./img/organization_active.svg">
+          <p>Organizations</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.project.suggested">
+        <div class="button button-icon icon">
+          <img src="./img/projects.svg">
+          <p>Projects</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.challenges.suggested">
+        <div class="button button-icon icon">
+          <img src="./img/challenges.svg">
+          <p>Challenges</p>
+        </div>
+      </a>
+      <a class="col text-center decorate-none" ui-sref="app.heroes.past">
+        <div class="button button-icon icon">
+          <img src="./img/heroes.svg">
+          <p>Heroes</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+  <!-- sub header end -->
+  <!-- tab start -->
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive sec-tab">
+
+    <ion-tab title="Current" href="#/app/organization/current">
+      <ion-nav-view class="tab-container" name="tab-current">
+
+      </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Suggested" href="#/app/organization/suggested">
+      <ion-nav-view class="tab-container" name="tab-suggested">
+
+      </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Past" href="#/app/organization/past">
+      <ion-nav-view class="tab-container" name="tab-past">
+
+      </ion-nav-view>
+    </ion-tab>
+
+  </ion-tabs>
+  <!-- tab end -->
+
+  <ion-content class="has-header has-subheader">
+    <!-- <a class="float-btn button button-icon icon ion-settings"></a> -->
+  </ion-content>
+  <!-- floating button start -->
+  <div class="float-btn">
+    <a class="button button-icon icon ion-plus" ng-click="gotoCreate()" ></a>
+  </div>
+  <!-- floating button end -->
+</ion-view>
+
+
+<!-- model popup create organization start -->
+<script id="templates/create.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive forgot-header">
+        <button class="button button-icon button-clear ion-ios7-arrow-thin-left width-50"
+        ng-click="modal.hide()" >
+          </button>
+        <span class="header-title"><b class="mch">Create </b>&nbsp;Organization</span>
+    </ion-header-bar>
+    <ion-content class="padding modal-org-create">
+        <div class="row">
+            <div class="col text-center">
+                <div class="logoImg">
+                    <img class="loaderimg" ng-src="{{create.loaderImg}}" ng-if="create.loaderImg">
+
+                    <img ng-if="!create.loaderImg" ng-src="{{create.img_path}}" alt="arrow up"  ngf-resize="{quality: .2}" ngf-select="upload($files,  $invalidFiles)"
+                    ngf-multiple="true" ngf-pattern="'image/*'">
+                </div>
+               
+            </div>
+          </div>
+        <div class="row">
+            <div class="col text-center">
+                <p class="grey-color fs-13 bold">Upload Organization Logo</p>
+            </div>
+          </div>
+
+          <div class="list">
+            <div class="row">
+              <div class="col">
+                  <label class="item item-input">
+                      <input type="text" ng-model="create.govtRegNumb" placeholder="Govt Registration Number" required>
+                    </label>
+              </div>
+            </div>
+             
+            <div class="row">
+                <div class="col">
+                  <label class="item item-input">
+                    <input type="text" ng-model="create.orgName" placeholder="Organization Name" required>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="col">
+                    <label class="item item-input">
+                        <textarea ng-model="create.orgDesc" placeholder="Organization Description" required></textarea>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                      <label class="item item-input">
+                          <input type="text" ng-model="create.orgAddress" placeholder="Organization Address" required>
+                          <i class="icon ion-navigate placeholder-icon input-icon-right"></i>
+                      </label>
+                    </div>
+                  </div>
+                  
+              
+                  <div class="row">
+                      <div class="col">
+                        <label class="item item-input">
+                            <input type="text" ng-model="create.postcode" placeholder="Post Code" required>
+                        </label>
+                      </div>
+                      <div class="col">
+                          <label class="item item-input">
+                              <input type="text" ng-model="create.city" placeholder="City" required>
+                          </label>
+                        </div>
+                    </div>
+
+
+                <div class="row">
+                    <div class="col">
+                      <label class="item item-input">
+                          <input type="text" ng-model="create.contact" placeholder="Organization Contact #" required>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col">
+                        <label class="item item-input">
+                            <input type="text" ng-model="create.email" placeholder="Email" required>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                          <label class="item item-input" ng-click="openDatePicker();">
+                              <i class="icon ion-ios7-calendar-outline placeholder-icon input-icon-left"></i>
+                              <input type="text" ng-model="create.foundon" placeholder="Found on" required readonly >
+                          </label>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <button class="button button-full button-positive br-2 button-gradiant"
+                              data-ng-disabled="!(create.image && create.govtRegNumb && create.orgName && create.orgDesc && create.orgAddress && create.postcode && create.city && create.contact && create.email && create.foundon)"
+                              ng-click="submit()">Create Organization</button>
+                          </div>
+                        </div>
+          </div>
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+<!-- model popup create organization end -->
+
+<!-- guest user restrict start -->
+<script id="templates/guestuser.html" type="text/ng-template">
+</script>
+<!-- guest user restrict end -->
+
